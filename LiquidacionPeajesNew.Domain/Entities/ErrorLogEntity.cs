@@ -12,6 +12,7 @@
 
         public string RequestPath { get; set; }
         public string RequestMethod { get; set; }
+        public string RequestParameters { get; set; }   // Guardados como JSON
         public string RequestHeaders { get; set; }      // Guardados como JSON
         public string RequestBody { get; set; }         // Guardado como texto plano o JSON
 

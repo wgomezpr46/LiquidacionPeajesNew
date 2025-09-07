@@ -1,5 +1,5 @@
 ﻿using LiquidacionPeajesNew.Domain.Interfaces;
-using LiquidacionPeajesNew.Infrastructure.Persistence.Repositories.UserRepository;
+using LiquidacionPeajesNew.Infrastructure.Persistence.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidacionPeajesNew.Infrastructure.ServiceCollection
@@ -10,6 +10,7 @@ namespace LiquidacionPeajesNew.Infrastructure.ServiceCollection
         {
             // Domain Interfaces
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ILogRepository, LogRepository>();
 
             return services;
         }

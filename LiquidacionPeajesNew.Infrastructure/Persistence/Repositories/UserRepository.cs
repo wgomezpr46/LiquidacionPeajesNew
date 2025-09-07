@@ -3,7 +3,7 @@ using LiquidacionPeajesNew.Domain.Interfaces;
 using LiquidacionPeajesNew.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace LiquidacionPeajesNew.Infrastructure.Persistence.Repositories.UserRepository
+namespace LiquidacionPeajesNew.Infrastructure.Persistence.Repositories
 {
     internal class UserRepository : IUserRepository
     {
