@@ -1,5 +1,5 @@
 ﻿using LiquidacionPeajesNew.Domain.Interfaces;
-using LiquidacionPeajesNew.Infrastructure.Persistence.Repositories;
+using LiquidacionPeajesNew.Infrastructure.Persistence.Repositories.UserRepository;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidacionPeajesNew.Infrastructure.ServiceCollection
