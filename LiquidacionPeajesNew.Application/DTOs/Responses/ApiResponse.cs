@@ -1,4 +1,5 @@
-﻿using LiquidacionPeajesNew.Domain.Enums;
+﻿using LiquidacionPeajesNew.Common.Constants;
+using LiquidacionPeajesNew.Common.Enums;
 
 namespace LiquidacionPeajesNew.Application.DTOs.Responses
 {

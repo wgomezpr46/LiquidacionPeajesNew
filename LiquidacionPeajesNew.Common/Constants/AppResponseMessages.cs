@@ -1,4 +1,6 @@
-﻿namespace LiquidacionPeajesNew.Domain.Enums
+﻿using LiquidacionPeajesNew.Common.Enums;
+
+namespace LiquidacionPeajesNew.Common.Constants
 {
     public static class AppResponseMessages
     {

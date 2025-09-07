@@ -1,4 +1,4 @@
-﻿namespace LiquidacionPeajesNew.Domain.Enums
+﻿namespace LiquidacionPeajesNew.Common.Enums
 {
     /*
         Error code ranges:

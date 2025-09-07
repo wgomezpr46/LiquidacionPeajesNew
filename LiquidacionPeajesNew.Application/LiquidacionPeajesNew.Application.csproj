@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LiquidacionPeajesNew.Common\LiquidacionPeajesNew.Common.csproj" />
     <ProjectReference Include="..\LiquidacionPeajesNew.Domain\LiquidacionPeajesNew.Domain.csproj" />
   </ItemGroup>
 

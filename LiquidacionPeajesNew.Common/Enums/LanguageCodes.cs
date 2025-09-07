@@ -1,4 +1,4 @@
-﻿namespace LiquidacionPeajesNew.Domain.Enums
+﻿namespace LiquidacionPeajesNew.Common.Enums
 {
     /// <summary>
     /// Clase estática que contiene constantes para códigos de idiomas.

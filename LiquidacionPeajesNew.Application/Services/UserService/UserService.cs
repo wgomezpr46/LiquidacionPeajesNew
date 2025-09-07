@@ -1,6 +1,6 @@
 ﻿using LiquidacionPeajesNew.Application.DTOs.Responses;
 using LiquidacionPeajesNew.Application.Services.TokenService;
-using LiquidacionPeajesNew.Domain.Enums;
+using LiquidacionPeajesNew.Common.Enums;
 using LiquidacionPeajesNew.Domain.Interfaces;
 
 namespace LiquidacionPeajesNew.Application.Services.UserService

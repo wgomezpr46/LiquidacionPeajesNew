@@ -1,6 +1,7 @@
 ﻿using LiquidacionPeajesNew.Application.DTOs.Requests;
 using LiquidacionPeajesNew.Application.DTOs.Responses;
-using LiquidacionPeajesNew.Domain.Enums;
+using LiquidacionPeajesNew.Common.Constants;
+using LiquidacionPeajesNew.Common.Enums;
 using LiquidacionPeajesNew.Domain.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
