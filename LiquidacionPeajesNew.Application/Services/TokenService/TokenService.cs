@@ -1,4 +1,5 @@
-﻿using LiquidacionPeajesNew.Application.DTOs.Requests;
+﻿using AutoMapper;
+using LiquidacionPeajesNew.Application.DTOs.Requests;
 using LiquidacionPeajesNew.Application.DTOs.Responses;
 using LiquidacionPeajesNew.Common.Constants;
 using LiquidacionPeajesNew.Common.Enums;
@@ -16,25 +17,22 @@ namespace LiquidacionPeajesNew.Application.Services.TokenService
     {
         private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public TokenService(IConfiguration configuration, IUserRepository userRepository)
+        public TokenService(IConfiguration configuration, IUserRepository userRepository, IMapper mapper)
         {
             _configuration = configuration;
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
-        public async Task<ApiResponse<TokenResponse>> Login(string name, string password)
+        public async Task<ApiResponse<TokenResponse>> Login(LoginRequest request)
         {
-            var user = await _userRepository.GetByNameAsync(name);
+            var user = await _userRepository.GetByNameAsync(request.User);
 
-            if (user.Contrasena == password)
+            if (user.Contrasena == request.Password)
             {
-                var userRequest = new UserRequest
-                {
-                    Usr_Codigo = user.IdUsuario,
-                    Usr_Nombre = user.Usuario,
-                    Usr_Estado = user.Estado
-                };
+                var userRequest = _mapper.Map<UserRequest>(user);
 
                 var tokenResponse = GenerateToken(userRequest);
                 if (tokenResponse.Status)

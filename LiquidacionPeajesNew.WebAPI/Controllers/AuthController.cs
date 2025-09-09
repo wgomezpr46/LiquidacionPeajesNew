@@ -21,7 +21,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var response = await _tokenService.Login(request.User, request.Password);
+            var response = await _tokenService.Login(request);
             if (response.Status)
             {
                 return Ok(response);

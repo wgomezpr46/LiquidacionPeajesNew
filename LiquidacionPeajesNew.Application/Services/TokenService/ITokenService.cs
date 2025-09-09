@@ -5,7 +5,7 @@ namespace LiquidacionPeajesNew.Application.Services.TokenService
 {
     public interface ITokenService
     {
-        Task<ApiResponse<TokenResponse>> Login(string name, string password);
+        Task<ApiResponse<TokenResponse>> Login(LoginRequest request);
         ApiResponse<string> GenerateToken(UserRequest request);
         ApiResponse<TokenResponse> ValidateToken(TokenRequest request);
     }
