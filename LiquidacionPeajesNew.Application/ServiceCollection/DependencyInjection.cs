@@ -1,4 +1,5 @@
 ﻿using LiquidacionPeajesNew.Application.Services.LogService;
+using LiquidacionPeajesNew.Application.Services.RutaService;
 using LiquidacionPeajesNew.Application.Services.TokenService;
 using LiquidacionPeajesNew.Application.Services.UserService;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,9 +15,10 @@ namespace LiquidacionPeajesNew.Application.ServiceCollection
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             // Application Service
+            services.AddTransient<ILogService, LogService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenService, TokenService>();
-            services.AddTransient<ILogService, LogService>();
+            services.AddScoped<IRutaService, RutaService>();
             services.AddHttpContextAccessor();
 
             return services;

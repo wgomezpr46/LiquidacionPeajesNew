@@ -9,8 +9,9 @@ namespace LiquidacionPeajesNew.Infrastructure.ServiceCollection
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
             // Domain Interfaces
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ILogRepository, LogRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRutaRepository, RutaRepository>();
 
             return services;
         }

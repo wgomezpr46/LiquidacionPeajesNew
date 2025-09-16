@@ -1,0 +1,14 @@
+﻿using LiquidacionPeajesNew.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace LiquidacionPeajesNew.Infrastructure.Persistence.Configurations
+{
+    public class RutaEntityConfiguration : IEntityTypeConfiguration<RutaEntity>
+    {
+        public void Configure(EntityTypeBuilder<RutaEntity> builder)
+        {
+            builder.ToTable("tb_LPE_Ruta").HasKey("IdRuta");
+        }
+    }
+}
