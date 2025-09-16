@@ -10,6 +10,7 @@ namespace LiquidacionPeajesNew.Infrastructure.Persistence.Context
         public DbSet<ErrorLogEntity> ErrorLogs { get; set; }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<RutaEntity> Rutas { get; set; }
+        public DbSet<OficinaEntity> Oficinas { get; set; }
 
         // 2. Constructor
         public BDALMContext(DbContextOptions<BDALMContext> options) : base(options) { }
@@ -20,6 +21,7 @@ namespace LiquidacionPeajesNew.Infrastructure.Persistence.Context
             modelBuilder.ApplyConfiguration(new ErrorLogEntityConfiguration());
             modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RutaEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new OficinaEntityConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

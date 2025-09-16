@@ -12,6 +12,7 @@ namespace LiquidacionPeajesNew.Infrastructure.ServiceCollection
             services.AddScoped<ILogRepository, LogRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRutaRepository, RutaRepository>();
+            services.AddScoped<IOficinaRepository, OficinaRepository>();
 
             return services;
         }

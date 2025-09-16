@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LiquidacionPeajesNew.WebAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[action]/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class RutaController : ControllerBase
     {

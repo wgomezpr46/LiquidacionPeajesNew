@@ -60,7 +60,6 @@ namespace LiquidacionPeajesNew.Application.Services.TokenService
             else
             {
                 return new ApiResponse<TokenResponse>(false, null, AppResponseCode.IncorrectPassword);
-
             }
         }
 
