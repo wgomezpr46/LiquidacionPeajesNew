@@ -1,4 +1,5 @@
-﻿using LiquidacionPeajesNew.Application.Services.LogService;
+﻿using LiquidacionPeajesNew.Application.Services.EstadoService;
+using LiquidacionPeajesNew.Application.Services.LogService;
 using LiquidacionPeajesNew.Application.Services.OficinaService;
 using LiquidacionPeajesNew.Application.Services.RutaService;
 using LiquidacionPeajesNew.Application.Services.TokenService;
@@ -21,6 +22,7 @@ namespace LiquidacionPeajesNew.Application.ServiceCollection
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IRutaService, RutaService>();
             services.AddScoped<IOficinaService, OficinaService>();
+            services.AddScoped<IEstadoService, EstadoService>();
             services.AddHttpContextAccessor();
 
             return services;
