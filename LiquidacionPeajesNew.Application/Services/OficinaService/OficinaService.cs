@@ -18,25 +18,14 @@ namespace LiquidacionPeajesNew.Application.Services.OficinaService
 
         public async Task<ApiResponse<ICollection<OficinaResponse>>> GetAllAsync(string OfiCodigo)
         {
-            try
-            {
-                var data = await _repository.GetAllAsync(OfiCodigo);
-                var mapped = _mapper.Map<ICollection<OficinaResponse>>(data);
+            var data = await _repository.GetAllAsync(OfiCodigo);
+            var mapped = _mapper.Map<ICollection<OficinaResponse>>(data);
 
-                return new ApiResponse<ICollection<OficinaResponse>>(
-                    status: true,
-                    value: mapped,
-                    messageCode: AppResponseCode.OperationCompletedSuccessfully
-                );
-            }
-            catch (Exception ex)
-            {
-                return new ApiResponse<ICollection<OficinaResponse>>(
-                    status: false,
-                    value: null,
-                    messageCode: AppResponseCode.UnknownError
-                );
-            }
+            return new ApiResponse<ICollection<OficinaResponse>>(
+                status: true,
+                value: mapped,
+                messageCode: AppResponseCode.OperationCompletedSuccessfully
+            );
         }
     }
 }

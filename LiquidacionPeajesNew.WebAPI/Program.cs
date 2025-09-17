@@ -30,12 +30,7 @@ namespace LiquidacionPeajesNew.WebAPI
             // ----------------------------
             // 🌍 Configuración de CORS (en producción limita el origen)
             // ----------------------------
-            builder.Services.AddCors(o => o.AddPolicy("AllowAllCORS", builder =>
-            {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            }));
+            builder.Services.AddCors(o => o.AddPolicy("AllowAllCORS", builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
 
             // ----------------------------
             // 🧩 Registrar servicios de infraestructura y aplicación (inyección de dependencias)
@@ -46,20 +41,22 @@ namespace LiquidacionPeajesNew.WebAPI
             // ----------------------------
             // 🔐 Configuración global de autorización (todos los endpoints requieren autenticación)
             // ----------------------------
-            builder.Services.AddControllers(option =>
-            {
-                var police = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                option.Filters.Add(new AuthorizeFilter(police));
-            })
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNamingPolicy = null; // Mantener nombres de propiedades tal como están en los DTOs (sin camelCase)
-            });
+            var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+            builder.Services
+                .AddControllers(option =>
+                {
+                    option.Filters.Add(new AuthorizeFilter(policy));
+                })
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.PropertyNamingPolicy = null; // Mantener nombres de propiedades tal como están en los DTOs (sin camelCase)
+                });
 
             // ----------------------------
             // 🔐 Configuración de autenticación JWT
             // ----------------------------
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            builder.Services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
