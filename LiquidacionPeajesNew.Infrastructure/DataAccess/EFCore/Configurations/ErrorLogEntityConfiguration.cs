@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace LiquidacionPeajesNew.Infrastructure.Persistence.Configurations
+namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Configurations
 {
     public class ErrorLogEntityConfiguration : IEntityTypeConfiguration<ErrorLogEntity>
     {

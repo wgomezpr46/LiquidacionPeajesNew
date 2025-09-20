@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace LiquidacionPeajesNew.Infrastructure.Persistence.Initialization
+namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Initializers
 {
     public static class DatabaseInitializer
     {

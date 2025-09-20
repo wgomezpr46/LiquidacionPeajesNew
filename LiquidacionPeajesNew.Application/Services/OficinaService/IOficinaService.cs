@@ -4,6 +4,6 @@ namespace LiquidacionPeajesNew.Application.Services.OficinaService
 {
     public interface IOficinaService
     {
-        Task<ApiResponse<ICollection<OficinaResponse>>> GetAllAsync(string OfiCodigo);
+        Task<ApiResponse<IEnumerable<OficinaResponse>>> GetAllAsync(string OfiCodigo);
     }
 }

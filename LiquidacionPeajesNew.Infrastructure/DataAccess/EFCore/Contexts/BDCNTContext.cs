@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace LiquidacionPeajesNew.Infrastructure.Persistence.Context
+namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Contexts
 {
     public class BDCNTContext : DbContext
     {

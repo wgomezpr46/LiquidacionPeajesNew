@@ -16,12 +16,12 @@ namespace LiquidacionPeajesNew.Application.Services.OficinaService
             _mapper = mapper;
         }
 
-        public async Task<ApiResponse<ICollection<OficinaResponse>>> GetAllAsync(string OfiCodigo)
+        public async Task<ApiResponse<IEnumerable<OficinaResponse>>> GetAllAsync(string OfiCodigo)
         {
             var data = await _repository.GetAllAsync(OfiCodigo);
-            var mapped = _mapper.Map<ICollection<OficinaResponse>>(data);
+            var mapped = _mapper.Map<IEnumerable<OficinaResponse>>(data);
 
-            return new ApiResponse<ICollection<OficinaResponse>>(
+            return new ApiResponse<IEnumerable<OficinaResponse>>(
                 status: true,
                 value: mapped,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully

@@ -1,5 +1,5 @@
 ﻿using LiquidacionPeajesNew.Domain.Interfaces;
-using LiquidacionPeajesNew.Infrastructure.Persistence.Repositories;
+using LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidacionPeajesNew.Infrastructure.ServiceCollection
@@ -14,6 +14,7 @@ namespace LiquidacionPeajesNew.Infrastructure.ServiceCollection
             services.AddScoped<IRutaRepository, RutaRepository>();
             services.AddScoped<IOficinaRepository, OficinaRepository>();
             services.AddScoped<IEstadoRepository, EstadoRepository>();
+            services.AddScoped<IZonaGaritaRepository, ZonaGaritaRepository>();
 
             return services;
         }

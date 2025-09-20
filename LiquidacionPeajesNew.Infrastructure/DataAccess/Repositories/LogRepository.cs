@@ -1,8 +1,8 @@
 ﻿using LiquidacionPeajesNew.Domain.Entities;
 using LiquidacionPeajesNew.Domain.Interfaces;
-using LiquidacionPeajesNew.Infrastructure.Persistence.Context;
+using LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Contexts;
 
-namespace LiquidacionPeajesNew.Infrastructure.Persistence.Repositories
+namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 {
     internal class LogRepository : ILogRepository
     {

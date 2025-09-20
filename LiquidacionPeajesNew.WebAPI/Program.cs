@@ -1,6 +1,6 @@
 ﻿using LiquidacionPeajesNew.Application.ServiceCollection;
-using LiquidacionPeajesNew.Infrastructure.Persistence.Context;
-using LiquidacionPeajesNew.Infrastructure.Persistence.Initialization;
+using LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Contexts;
+using LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Initializers;
 using LiquidacionPeajesNew.Infrastructure.ServiceCollection;
 using LiquidacionPeajesNew.WebAPI.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

@@ -1,8 +1,8 @@
 ﻿using LiquidacionPeajesNew.Domain.Entities;
-using LiquidacionPeajesNew.Infrastructure.Persistence.Configurations;
+using LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Configurations;
 using Microsoft.EntityFrameworkCore;
 
-namespace LiquidacionPeajesNew.Infrastructure.Persistence.Context
+namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Contexts
 {
     public class BDALMContext : DbContext
     {
@@ -12,6 +12,7 @@ namespace LiquidacionPeajesNew.Infrastructure.Persistence.Context
         public DbSet<RutaEntity> Rutas { get; set; }
         public DbSet<OficinaEntity> Oficinas { get; set; }
         public DbSet<EstadoEntity> Estados { get; set; }
+        public DbSet<ZonaGaritaEntity> ZonaGaritas { get; set; }
 
         // 2. Constructor
         public BDALMContext(DbContextOptions<BDALMContext> options) : base(options) { }
@@ -24,6 +25,7 @@ namespace LiquidacionPeajesNew.Infrastructure.Persistence.Context
             modelBuilder.ApplyConfiguration(new RutaEntityConfiguration());
             modelBuilder.ApplyConfiguration(new OficinaEntityConfiguration());
             modelBuilder.ApplyConfiguration(new EstadoEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ZonaGaritaEntityConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
