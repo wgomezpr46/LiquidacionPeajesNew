@@ -1,4 +1,5 @@
 ﻿using LiquidacionPeajesNew.Application.Services.ZonaGaritaService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LiquidacionPeajesNew.WebAPI.Controllers
@@ -18,8 +19,8 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _zonaGaritaService.GetAllAsync();
-            return Ok(result);
+            var response = await _zonaGaritaService.GetAllAsync();
+            return Ok(response);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace LiquidacionPeajesNew.Infrastructure.ServiceCollection
             services.AddScoped<IOficinaRepository, OficinaRepository>();
             services.AddScoped<IEstadoRepository, EstadoRepository>();
             services.AddScoped<IZonaGaritaRepository, ZonaGaritaRepository>();
+            services.AddScoped<ITipoDocumentoCompraRepository, TipoDocumentoCompraRepository>();
 
             return services;
         }

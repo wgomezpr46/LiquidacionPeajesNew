@@ -13,6 +13,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Contexts
         public DbSet<OficinaEntity> Oficinas { get; set; }
         public DbSet<EstadoEntity> Estados { get; set; }
         public DbSet<ZonaGaritaEntity> ZonaGaritas { get; set; }
+        public DbSet<TipoDocumentoCompraEntity> TipoDocumentoCompras { get; set; }
 
         // 2. Constructor
         public BDALMContext(DbContextOptions<BDALMContext> options) : base(options) { }
@@ -26,6 +27,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Contexts
             modelBuilder.ApplyConfiguration(new OficinaEntityConfiguration());
             modelBuilder.ApplyConfiguration(new EstadoEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ZonaGaritaEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new TipoDocumentoCompraEntityConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
