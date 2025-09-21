@@ -16,7 +16,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<UsuarioLoginEntity> GetByIdAsync(string code)
+        public async Task<UsuarioLoginEntity> GetByIdAsync(string codigo)
         {
             var usuarioLogin = new UsuarioLoginEntity();
 
@@ -27,7 +27,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
                 using (var command = new SqlCommand("usp_Usr_Login", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@Usr_Codigo", SqlDbType.VarChar, 6)).Value = code ?? string.Empty;
+                    command.Parameters.Add(new SqlParameter("@Usr_Codigo", SqlDbType.VarChar, 6)).Value = codigo ?? string.Empty;
                     command.Parameters.Add(new SqlParameter("@Usr_Nombre", SqlDbType.VarChar, 100)).Value = string.Empty;
 
                     await connection.OpenAsync();
@@ -62,7 +62,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
             return usuarioLogin;
         }
 
-        public async Task<UsuarioLoginEntity> GetByNameAsync(string name)
+        public async Task<UsuarioLoginEntity> GetByNameAsync(string nombre)
         {
             var usuarioLogin = new UsuarioLoginEntity();
 
@@ -74,7 +74,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@Usr_Codigo", SqlDbType.VarChar, 6)).Value = string.Empty;
-                    command.Parameters.Add(new SqlParameter("@Usr_Nombre", SqlDbType.VarChar, 100)).Value = name ?? string.Empty;
+                    command.Parameters.Add(new SqlParameter("@Usr_Nombre", SqlDbType.VarChar, 100)).Value = nombre ?? string.Empty;
 
                     await connection.OpenAsync();
 

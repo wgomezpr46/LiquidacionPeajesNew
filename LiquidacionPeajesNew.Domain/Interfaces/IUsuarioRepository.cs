@@ -4,7 +4,7 @@ namespace LiquidacionPeajesNew.Domain.Interfaces
 {
     public interface IUsuarioRepository
     {
-        Task<UsuarioLoginEntity> GetByIdAsync(string code);
-        Task<UsuarioLoginEntity> GetByNameAsync(string name);
+        Task<UsuarioLoginEntity> GetByIdAsync(string codigo);
+        Task<UsuarioLoginEntity> GetByNameAsync(string nombre);
     }
 }

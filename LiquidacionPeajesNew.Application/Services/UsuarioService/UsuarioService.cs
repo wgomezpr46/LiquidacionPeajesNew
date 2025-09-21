@@ -17,9 +17,9 @@ namespace LiquidacionPeajesNew.Application.Services.UsuarioService
             _mapper = mapper;
         }
 
-        public async Task<ApiResponse<UsuarioLoginResponse>> GetByIdAsync(string code)
+        public async Task<ApiResponse<UsuarioLoginResponse>> GetByIdAsync(string codigo)
         {
-            var user = await _userRepository.GetByIdAsync(code);
+            var user = await _userRepository.GetByIdAsync(codigo);
             var response = _mapper.Map<UsuarioLoginResponse>(user);
 
             return new ApiResponse<UsuarioLoginResponse>(true, response, AppResponseCode.AuthenticationSuccessful);

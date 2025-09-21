@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LiquidacionPeajesNew.Application.DTOs.Requests;
 using LiquidacionPeajesNew.Application.DTOs.Responses;
 using LiquidacionPeajesNew.Domain.Entities;
 
@@ -9,6 +10,7 @@ namespace LiquidacionPeajesNew.Application.Mappings
         public ZonaGaritaProfile()
         {
             CreateMap<ZonaGaritaEntity, ZonaGaritaResponse>();
+            CreateMap<ZonaGaritaRequest, ZonaGaritaEntity>();
         }
     }
 }

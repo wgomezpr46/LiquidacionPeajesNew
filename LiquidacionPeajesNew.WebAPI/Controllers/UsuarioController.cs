@@ -16,10 +16,10 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         }
 
         // GET: api/Usuario/GetById/0001
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetById(string code)
+        [HttpGet("{codigo}")]
+        public async Task<IActionResult> GetById(string codigo)
         {
-            var response = await _userService.GetByIdAsync(code);
+            var response = await _userService.GetByIdAsync(codigo);
             if (response.Status)
             {
                 return Ok(response);

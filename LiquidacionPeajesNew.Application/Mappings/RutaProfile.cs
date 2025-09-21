@@ -9,7 +9,7 @@ namespace LiquidacionPeajesNew.Application.Mappings
     {
         public RutaProfile()
         {
-            CreateMap<RutaEntity, RutaResponse>().ReverseMap();
+            CreateMap<RutaEntity, RutaResponse>();
             CreateMap<RutaRequest, RutaEntity>();
         }
     }
