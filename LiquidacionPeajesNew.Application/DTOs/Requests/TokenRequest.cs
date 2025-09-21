@@ -2,7 +2,7 @@
 {
     public class TokenRequest
     {
-        public UserRequest UserRequest { get; set; }
+        public string UserCode { get; set; }
         public string AccessToken { get; set; }
     }
 }

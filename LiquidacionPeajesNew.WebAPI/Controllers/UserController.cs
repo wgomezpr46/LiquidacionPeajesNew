@@ -15,24 +15,10 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("{code}")]
+        public async Task<IActionResult> GetById(string code)
         {
-            var response = await _userService.GetAllAsync();
-            if (response.Status)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(short id)
-        {
-            var response = await _userService.GetByIdAsync(id);
+            var response = await _userService.GetByIdAsync(code);
             if (response.Status)
             {
                 return Ok(response);

@@ -17,20 +17,12 @@ namespace LiquidacionPeajesNew.Application.Services.UserService
             _mapper = mapper;
         }
 
-        public async Task<ApiResponse<IEnumerable<UserResponse>>> GetAllAsync()
+        public async Task<ApiResponse<UsuarioLoginResponse>> GetByIdAsync(string code)
         {
-            var users = await _userRepository.GetAllAsync();
-            var response = _mapper.Map<IEnumerable<UserResponse>>(users);
+            var user = await _userRepository.GetByIdAsync(code);
+            var response = _mapper.Map<UsuarioLoginResponse>(user);
 
-            return new ApiResponse<IEnumerable<UserResponse>>(true, response, AppResponseCode.AuthenticationSuccessful);
-        }
-
-        public async Task<ApiResponse<UserResponse>> GetByIdAsync(short id)
-        {
-            var user = await _userRepository.GetByIdAsync(id);
-            var response = _mapper.Map<UserResponse>(user);
-
-            return new ApiResponse<UserResponse>(true, response, AppResponseCode.AuthenticationSuccessful);
+            return new ApiResponse<UsuarioLoginResponse>(true, response, AppResponseCode.AuthenticationSuccessful);
         }
     }
 }

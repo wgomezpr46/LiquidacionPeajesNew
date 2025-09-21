@@ -17,6 +17,14 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             _tokenService = tokenService;
         }
 
+        /// <summary>
+        /// Autentica a un usuario con las credenciales proporcionadas y genera un token JWT si son válidas.
+        /// </summary>
+        /// <param name="request">Objeto que contiene las credenciales del usuario (usuario y contraseña).</param>
+        /// <returns>
+        /// Retorna un código 200 (OK) con el token de acceso si la autenticación es exitosa; 
+        /// de lo contrario, retorna un código 400 (Bad Request) con un mensaje de error.
+        /// </returns>
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
@@ -39,9 +47,9 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         /// <returns>200 OK con el nuevo token si fue renovado, o el original si aún es válido.</returns>
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult RefreshToken([FromBody] TokenRequest request)
+        public async Task<IActionResult> RefreshToken([FromBody] TokenRequest request)
         {
-            var response = _tokenService.ValidateToken(request);
+            var response = await _tokenService.ValidateToken(request);
             if (response.Status)
             {
                 return Ok(response);

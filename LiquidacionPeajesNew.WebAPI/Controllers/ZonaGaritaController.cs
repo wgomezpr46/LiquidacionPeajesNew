@@ -1,5 +1,4 @@
 ﻿using LiquidacionPeajesNew.Application.Services.ZonaGaritaService;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LiquidacionPeajesNew.WebAPI.Controllers

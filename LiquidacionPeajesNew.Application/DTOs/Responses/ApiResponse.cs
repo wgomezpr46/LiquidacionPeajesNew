@@ -24,7 +24,7 @@ namespace LiquidacionPeajesNew.Application.DTOs.Responses
             Value = value;
         }
 
-        public ApiResponse(bool status, T value, AppResponseCode messageCode, string language = LanguageCodes.Inglés)
+        public ApiResponse(bool status, T value, AppResponseCode messageCode, string language = LanguageCodes.Español)
         {
             Status = status;
             Value = value;
@@ -32,7 +32,7 @@ namespace LiquidacionPeajesNew.Application.DTOs.Responses
             ErrorCode = (!status) ? (int)messageCode : null;
         }
 
-        public ApiResponse(bool status, T value, AppResponseCode messageCode, object metadata, string language = LanguageCodes.Inglés)
+        public ApiResponse(bool status, T value, AppResponseCode messageCode, object metadata, string language = LanguageCodes.Español)
         {
             Status = status;
             Value = value;

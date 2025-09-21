@@ -37,17 +37,17 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
                         {
                             var oficina = new OficinaEntity
                             {
-                                Ofi_Codigo = reader["Ofi_Codigo"]?.ToString(),
-                                Usr_Codigo = reader["Usr_Codigo"]?.ToString(),
-                                Ofi_Nombre = reader["Ofi_Nombre"]?.ToString(),
-                                Ofi_Direccion = reader["Ofi_Direccion"]?.ToString(),
-                                Ofi_Telefono1 = reader["Ofi_Telefono1"]?.ToString(),
-                                Ofi_Telefono2 = reader["Ofi_Telefono2"]?.ToString(),
-                                Ofi_EMail = reader["Ofi_EMail"]?.ToString(),
-                                Ofi_Fecha = reader["Ofi_Fecha"] != DBNull.Value ? Convert.ToDateTime(reader["Ofi_Fecha"]) : default,
-                                Ofi_Hora = reader["Ofi_Hora"]?.ToString(),
-                                Ofi_Estado = reader["Ofi_Estado"]?.ToString(),
-                                Suc_Codigo = reader["Suc_Codigo"]?.ToString()
+                                Ofi_Codigo = reader["Ofi_Codigo"] != DBNull.Value ? reader["Ofi_Codigo"].ToString() : string.Empty,
+                                Usr_Codigo = reader["Usr_Codigo"] != DBNull.Value ? reader["Usr_Codigo"].ToString() : string.Empty,
+                                Ofi_Nombre = reader["Ofi_Nombre"] != DBNull.Value ? reader["Ofi_Nombre"].ToString() : string.Empty,
+                                Ofi_Direccion = reader["Ofi_Direccion"] != DBNull.Value ? reader["Ofi_Direccion"].ToString() : string.Empty,
+                                Ofi_Telefono1 = reader["Ofi_Telefono1"] != DBNull.Value ? reader["Ofi_Telefono1"].ToString() : string.Empty,
+                                Ofi_Telefono2 = reader["Ofi_Telefono2"] != DBNull.Value ? reader["Ofi_Telefono2"].ToString() : string.Empty,
+                                Ofi_EMail = reader["Ofi_EMail"] != DBNull.Value ? reader["Ofi_EMail"].ToString() : string.Empty,
+                                Ofi_Fecha = reader["Ofi_Fecha"] != DBNull.Value ? Convert.ToDateTime(reader["Ofi_Fecha"]) : (DateTime?)null,
+                                Ofi_Hora = reader["Ofi_Hora"] != DBNull.Value ? reader["Ofi_Hora"].ToString() : string.Empty,
+                                Ofi_Estado = reader["Ofi_Estado"] != DBNull.Value ? reader["Ofi_Estado"].ToString() : string.Empty,
+                                Suc_Codigo = reader["Suc_Codigo"] != DBNull.Value ? reader["Suc_Codigo"].ToString() : string.Empty,
                             };
 
                             oficinas.Add(oficina);

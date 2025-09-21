@@ -447,24 +447,20 @@ namespace LiquidacionPeajesNew.Common.Constants
             #endregion
         };
 
-        public static string GetMessage(AppResponseCode code, string language = LanguageCodes.Inglés)
+        public static string GetMessage(AppResponseCode code, string language = LanguageCodes.Español)
         {
-            // Try to get the dictionary of messages for the response code
             if (Messages.TryGetValue((int)code, out var localizedMessages))
             {
-                // Try to get the message in the requested language
                 if (localizedMessages.TryGetValue(language, out var message))
                 {
                     return message;
                 }
-                // Fallback to English if the specific language is not found
                 else if (localizedMessages.TryGetValue(LanguageCodes.Inglés, out var defaultMessage))
                 {
                     return defaultMessage;
                 }
             }
 
-            // Throw exception if no message is found
             throw new KeyNotFoundException($"No message found for response code '{code}' and language '{language}'.");
         }
     }
