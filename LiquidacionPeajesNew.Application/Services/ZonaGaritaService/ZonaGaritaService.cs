@@ -53,34 +53,46 @@ namespace LiquidacionPeajesNew.Application.Services.ZonaGaritaService
 
         public async Task<ApiResponse<int>> AddAsync(ZonaGaritaRequest request)
         {
-            var entity = _mapper.Map<ZonaGaritaEntity>(request);
-            await _repository.AddAsync(entity);
+            var mapped = _mapper.Map<ZonaGaritaEntity>(request);
+
+            var existeEntity = await _repository.GetByNameAsync(mapped.IdZonaGarita, mapped.ZonaGarita);
+            if (existeEntity.IdZonaGarita > 0)
+            {
+                return new ApiResponse<int>(
+                    status: false,
+                    value: existeEntity.IdZonaGarita,
+                    messageCode: AppResponseCode.RecordAlreadyExists
+                );
+            }
+
+            await _repository.AddAsync(mapped);
 
             return new ApiResponse<int>(
                 status: true,
-                value: entity.IdZonaGarita,
+                value: mapped.IdZonaGarita,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
         public async Task<ApiResponse<int>> UpdateAsync(ZonaGaritaRequest request)
         {
-            var entity = await _repository.GetByIdAsync(request.IdZonaGarita);
-            if (entity.IdZonaGarita == 0)
+            var mapped = _mapper.Map<ZonaGaritaEntity>(request);
+
+            var existeEntity = await _repository.GetByNameAsync(mapped.IdZonaGarita, mapped.ZonaGarita);
+            if (existeEntity.IdZonaGarita > 0)
             {
                 return new ApiResponse<int>(
                     status: false,
-                    value: entity.IdZonaGarita,
-                    messageCode: AppResponseCode.RecordNotFoundInDatabase
+                    value: existeEntity.IdZonaGarita,
+                    messageCode: AppResponseCode.RecordAlreadyExists
                 );
             }
 
-            _mapper.Map(request, entity);
-            await _repository.UpdateAsync(entity);
+            await _repository.UpdateAsync(mapped);
 
             return new ApiResponse<int>(
                 status: true,
-                value: entity.IdZonaGarita,
+                value: mapped.IdZonaGarita,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }

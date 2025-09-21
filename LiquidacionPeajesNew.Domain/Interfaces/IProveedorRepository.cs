@@ -6,6 +6,7 @@ namespace LiquidacionPeajesNew.Domain.Interfaces
     {
         Task<IEnumerable<ProveedorEntity>> GetAllAsync();
         Task<ProveedorEntity> GetByIdAsync(int id);
+        Task<ProveedorEntity> GetByRUCAsync(int id, string ruc);
         Task AddAsync(ProveedorEntity entity);
         Task UpdateAsync(ProveedorEntity entity);
         Task DeleteAsync(int id);

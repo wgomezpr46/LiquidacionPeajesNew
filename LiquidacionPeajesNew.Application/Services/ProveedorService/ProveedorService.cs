@@ -30,55 +30,67 @@ namespace LiquidacionPeajesNew.Application.Services.ProveedorService
             );
         }
 
-        public async Task<ApiResponse<RutaResponse>> GetByIdAsync(int id)
+        public async Task<ApiResponse<ProveedorResponse>> GetByIdAsync(int id)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity.IdProveedorGarita == 0)
             {
-                return new ApiResponse<RutaResponse>(
+                return new ApiResponse<ProveedorResponse>(
                     status: false,
                     value: null,
                     messageCode: AppResponseCode.RecordNotFoundInDatabase
                 );
             }
 
-            return new ApiResponse<RutaResponse>(
+            return new ApiResponse<ProveedorResponse>(
                 status: true,
-                value: _mapper.Map<RutaResponse>(entity),
+                value: _mapper.Map<ProveedorResponse>(entity),
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
         public async Task<ApiResponse<int>> AddAsync(ProveedorRequest request)
         {
-            var entity = _mapper.Map<ProveedorEntity>(request);
-            await _repository.AddAsync(entity);
+            var mapped = _mapper.Map<ProveedorEntity>(request);
+
+            var existeEntity = await _repository.GetByRUCAsync(mapped.IdProveedorGarita, mapped.Ruc);
+            if (existeEntity.IdProveedorGarita > 0)
+            {
+                return new ApiResponse<int>(
+                    status: false,
+                    value: existeEntity.IdProveedorGarita,
+                    messageCode: AppResponseCode.RecordAlreadyExists
+                );
+            }
+
+            await _repository.AddAsync(mapped);
 
             return new ApiResponse<int>(
                 status: true,
-                value: entity.IdProveedorGarita,
+                value: mapped.IdProveedorGarita,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
         public async Task<ApiResponse<int>> UpdateAsync(ProveedorRequest request)
         {
-            var entity = await _repository.GetByIdAsync(request.IdProveedorGarita);
-            if (entity.IdProveedorGarita == 0)
+            var mapped = _mapper.Map<ProveedorEntity>(request);
+
+            var existeEntity = await _repository.GetByRUCAsync(mapped.IdProveedorGarita, mapped.Ruc);
+            if (existeEntity.IdProveedorGarita > 0)
             {
                 return new ApiResponse<int>(
                     status: false,
-                    value: entity.IdProveedorGarita,
-                    messageCode: AppResponseCode.RecordNotFoundInDatabase
+                    value: existeEntity.IdProveedorGarita,
+                    messageCode: AppResponseCode.RecordAlreadyExists
                 );
             }
 
-            _mapper.Map(request, entity);
-            await _repository.UpdateAsync(entity);
+            await _repository.UpdateAsync(mapped);
 
             return new ApiResponse<int>(
                 status: true,
-                value: entity.IdProveedorGarita,
+                value: mapped.IdProveedorGarita,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }

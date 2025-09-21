@@ -54,7 +54,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ PUT: api/Proveedor/Update/5
+        // ✅ PUT: api/Proveedor/Update
         [HttpPut()]
         public async Task<IActionResult> Update([FromBody] ProveedorRequest request)
         {

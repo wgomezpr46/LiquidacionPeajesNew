@@ -6,6 +6,7 @@ namespace LiquidacionPeajesNew.Domain.Interfaces
     {
         Task<IEnumerable<ZonaGaritaEntity>> GetAllAsync();
         Task<ZonaGaritaEntity> GetByIdAsync(byte id);
+        Task<ZonaGaritaEntity> GetByNameAsync(byte id, string name);
         Task AddAsync(ZonaGaritaEntity entity);
         Task UpdateAsync(ZonaGaritaEntity entity);
         Task DeleteAsync(byte id);

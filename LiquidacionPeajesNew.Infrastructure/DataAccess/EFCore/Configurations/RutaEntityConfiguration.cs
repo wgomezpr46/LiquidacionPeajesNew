@@ -8,7 +8,8 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Configurations
     {
         public void Configure(EntityTypeBuilder<RutaEntity> builder)
         {
-            builder.ToTable("tb_LPE_Ruta").HasKey("IdRuta");
+            builder.ToTable("tb_LPE_Ruta").HasKey(x => x.IdRuta);
+            builder.Property(z => z.IdRuta).ValueGeneratedOnAdd();
         }
     }
 }

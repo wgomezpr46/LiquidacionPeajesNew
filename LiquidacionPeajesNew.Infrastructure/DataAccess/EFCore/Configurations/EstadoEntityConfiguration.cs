@@ -8,7 +8,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Configurations
     {
         public void Configure(EntityTypeBuilder<EstadoEntity> builder)
         {
-            builder.ToTable("tb_LPE_Estado").HasKey("IdEstado");
+            builder.ToTable("tb_LPE_Estado").HasKey(x => x.IdEstado);
         }
     }
 }

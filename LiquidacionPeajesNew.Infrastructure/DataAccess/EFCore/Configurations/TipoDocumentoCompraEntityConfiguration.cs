@@ -8,7 +8,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Configurations
     {
         public void Configure(EntityTypeBuilder<TipoDocumentoCompraEntity> builder)
         {
-            builder.ToTable("tb_LPE_TipoDocumentoCompra").HasKey("IdTipoDoc");
+            builder.ToTable("tb_LPE_TipoDocumentoCompra").HasKey(x => x.IdTipoDoc);
         }
     }
 }

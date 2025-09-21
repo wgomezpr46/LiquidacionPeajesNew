@@ -8,7 +8,8 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Configurations
     {
         public void Configure(EntityTypeBuilder<ErrorLogEntity> builder)
         {
-            builder.ToTable("tb_ErrorLogs").HasKey("Id");
+            builder.ToTable("tb_ErrorLogs").HasKey(x => x.Id);
+            builder.Property(z => z.Id).ValueGeneratedOnAdd();
         }
     }
 }

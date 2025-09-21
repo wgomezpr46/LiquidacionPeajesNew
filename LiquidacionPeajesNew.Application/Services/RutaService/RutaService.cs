@@ -66,34 +66,46 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
 
         public async Task<ApiResponse<int>> AddAsync(RutaRequest request)
         {
-            var entity = _mapper.Map<RutaEntity>(request);
-            await _rutaRepository.AddAsync(entity);
+            var mapped = _mapper.Map<RutaEntity>(request);
+
+            var existeEntity = await _rutaRepository.GetByOrigenDestinoAsync(mapped.IdRuta, mapped.IdOrigen, mapped.IdDestino);
+            if (existeEntity.IdRuta > 0)
+            {
+                return new ApiResponse<int>(
+                    status: false,
+                    value: existeEntity.IdRuta,
+                    messageCode: AppResponseCode.RecordAlreadyExists
+                );
+            }
+
+            await _rutaRepository.AddAsync(mapped);
 
             return new ApiResponse<int>(
                 status: true,
-                value: entity.IdRuta,
+                value: mapped.IdRuta,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
         public async Task<ApiResponse<int>> UpdateAsync(RutaRequest request)
         {
-            var entity = await _rutaRepository.GetByIdAsync(request.IdRuta);
-            if (entity.IdRuta == 0)
+            var mapped = _mapper.Map<RutaEntity>(request);
+
+            var existeEntity = await _rutaRepository.GetByOrigenDestinoAsync(mapped.IdRuta,mapped.IdOrigen, mapped.IdDestino);
+            if (existeEntity.IdRuta > 0)
             {
                 return new ApiResponse<int>(
                     status: false,
-                    value: entity.IdRuta,
-                    messageCode: AppResponseCode.RecordNotFoundInDatabase
+                    value: existeEntity.IdRuta,
+                    messageCode: AppResponseCode.RecordAlreadyExists
                 );
             }
 
-            _mapper.Map(request, entity);
-            await _rutaRepository.UpdateAsync(entity);
+            await _rutaRepository.UpdateAsync(mapped);
 
             return new ApiResponse<int>(
                 status: true,
-                value: entity.IdRuta,
+                value: mapped.IdRuta,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }

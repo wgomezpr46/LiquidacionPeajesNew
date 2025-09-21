@@ -8,7 +8,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Configurations
     {
         public void Configure(EntityTypeBuilder<OficinaEntity> builder)
         {
-            builder.ToTable("Ofi").HasKey("ID_Key");
+            builder.ToTable("Ofi").HasKey(x => x.ID_Key);
         }
     }
 }

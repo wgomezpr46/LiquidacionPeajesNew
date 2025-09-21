@@ -24,6 +24,18 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
             return await _context.Rutas.FirstOrDefaultAsync(x => x.IdRuta == id) ?? new RutaEntity();
         }
 
+        public async Task<RutaEntity> GetByOrigenDestinoAsync(int id, string IdOrigen, string IdDestino)
+        {
+            if (id > 0)
+            {
+                return await _context.Rutas.FirstOrDefaultAsync(x => x.IdRuta != id && x.IdOrigen == IdOrigen && x.IdDestino == IdDestino) ?? new RutaEntity();
+            }
+            else
+            {
+                return await _context.Rutas.FirstOrDefaultAsync(x => x.IdOrigen == IdOrigen && x.IdDestino == IdDestino) ?? new RutaEntity();
+            }
+        }
+
         public async Task AddAsync(RutaEntity entity)
         {
             entity.IdEstado = 1;
@@ -40,7 +52,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
         public async Task DeleteAsync(int id)
         {
             var entity = await GetByIdAsync(id);
-            if (entity is not null)
+            if (entity != null)
             {
                 _context.Set<RutaEntity>().Remove(entity);
                 await _context.SaveChangesAsync();

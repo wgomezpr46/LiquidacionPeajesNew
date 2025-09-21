@@ -21,7 +21,19 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 
         public async Task<ProveedorEntity> GetByIdAsync(int id)
         {
-            return await _context.Proveedores.Where(p => p.IdProveedorGarita == id).FirstOrDefaultAsync() ?? new ProveedorEntity();
+            return await _context.Proveedores.Where(p => p.IdProveedorGarita == id).Include(p => p.TipoDocumentoCompra).FirstOrDefaultAsync() ?? new ProveedorEntity();
+        }
+
+        public async Task<ProveedorEntity> GetByRUCAsync(int id, string ruc)
+        {
+            if (id > 0)
+            {
+                return await _context.Proveedores.Where(p => p.IdProveedorGarita != id && p.Ruc == ruc).Include(p => p.TipoDocumentoCompra).FirstOrDefaultAsync() ?? new ProveedorEntity();
+            }
+            else
+            {
+                return await _context.Proveedores.Where(p => p.Ruc == ruc).Include(p => p.TipoDocumentoCompra).FirstOrDefaultAsync() ?? new ProveedorEntity();
+            }
         }
 
         public async Task AddAsync(ProveedorEntity entity)
@@ -40,7 +52,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
         public async Task DeleteAsync(int id)
         {
             var entity = await GetByIdAsync(id);
-            if (entity is not null)
+            if (entity != null)
             {
                 _context.Set<ProveedorEntity>().Remove(entity);
                 await _context.SaveChangesAsync();
