@@ -9,19 +9,28 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
 {
     public class RutaService : IRutaService
     {
-        private readonly IRutaRepository _repository;
+        private readonly IRutaRepository _rutaRepository;
+        private readonly IOficinaRepository _oficinaRepository;
         private readonly IMapper _mapper;
 
-        public RutaService(IRutaRepository repository, IMapper mapper)
+        public RutaService(IRutaRepository rutaRepository, IOficinaRepository oficinaRepository, IMapper mapper)
         {
-            _repository = repository;
+            _rutaRepository = rutaRepository;
+            _oficinaRepository = oficinaRepository;
             _mapper = mapper;
         }
 
         public async Task<ApiResponse<IEnumerable<RutaResponse>>> GetAllAsync()
         {
-            var entities = await _repository.GetAllAsync();
-            var mapped = _mapper.Map<IEnumerable<RutaResponse>>(entities);
+            var rutas = await _rutaRepository.GetAllAsync();
+            var oficinas = await _oficinaRepository.GetAllAsync(string.Empty);
+
+            var mapped = _mapper.Map<IEnumerable<RutaResponse>>(rutas);
+            foreach (var item in mapped)
+            {
+                item.NombreOrigen = oficinas.FirstOrDefault(x => x.Ofi_Codigo == item.IdOrigen)?.Ofi_Nombre ?? string.Empty;
+                item.NombreDestino = oficinas.FirstOrDefault(x => x.Ofi_Codigo == item.IdDestino)?.Ofi_Nombre ?? string.Empty;
+            }
 
             return new ApiResponse<IEnumerable<RutaResponse>>(
                 status: true,
@@ -32,8 +41,10 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
 
         public async Task<ApiResponse<RutaResponse>> GetByIdAsync(int id)
         {
-            var entity = await _repository.GetByIdAsync(id);
-            if (entity == null)
+            var entity = await _rutaRepository.GetByIdAsync(id);
+            var oficinas = await _oficinaRepository.GetAllAsync(string.Empty);
+
+            if (entity.IdRuta == 0)
             {
                 return new ApiResponse<RutaResponse>(
                     status: false,
@@ -42,9 +53,13 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
                 );
             }
 
+            var mapped = _mapper.Map<RutaResponse>(entity);
+            mapped.NombreOrigen = oficinas.FirstOrDefault(x => x.Ofi_Codigo == mapped.IdOrigen)?.Ofi_Nombre ?? string.Empty;
+            mapped.NombreDestino = oficinas.FirstOrDefault(x => x.Ofi_Codigo == mapped.IdDestino)?.Ofi_Nombre ?? string.Empty;
+
             return new ApiResponse<RutaResponse>(
                 status: true,
-                value: _mapper.Map<RutaResponse>(entity),
+                value: mapped,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
@@ -52,7 +67,7 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
         public async Task<ApiResponse<int>> AddAsync(RutaRequest request)
         {
             var entity = _mapper.Map<RutaEntity>(request);
-            await _repository.AddAsync(entity);
+            await _rutaRepository.AddAsync(entity);
 
             return new ApiResponse<int>(
                 status: true,
@@ -63,8 +78,8 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
 
         public async Task<ApiResponse<int>> UpdateAsync(RutaRequest request)
         {
-            var entity = await _repository.GetByIdAsync(request.IdRuta);
-            if (entity == null)
+            var entity = await _rutaRepository.GetByIdAsync(request.IdRuta);
+            if (entity.IdRuta == 0)
             {
                 return new ApiResponse<int>(
                     status: false,
@@ -74,7 +89,7 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
             }
 
             _mapper.Map(request, entity);
-            await _repository.UpdateAsync(entity);
+            await _rutaRepository.UpdateAsync(entity);
 
             return new ApiResponse<int>(
                 status: true,
@@ -85,8 +100,8 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
 
         public async Task<ApiResponse<int>> DeleteAsync(int id)
         {
-            var entity = await _repository.GetByIdAsync(id);
-            if (entity == null)
+            var entity = await _rutaRepository.GetByIdAsync(id);
+            if (entity.IdRuta == 0)
             {
                 return new ApiResponse<int>(
                     status: false,
@@ -95,7 +110,7 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
                 );
             }
 
-            await _repository.DeleteAsync(id);
+            await _rutaRepository.DeleteAsync(id);
 
             return new ApiResponse<int>(
                 status: true,

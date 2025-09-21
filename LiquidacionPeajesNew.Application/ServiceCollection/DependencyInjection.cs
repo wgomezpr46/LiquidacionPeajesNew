@@ -5,7 +5,7 @@ using LiquidacionPeajesNew.Application.Services.ProveedorService;
 using LiquidacionPeajesNew.Application.Services.RutaService;
 using LiquidacionPeajesNew.Application.Services.TipoDocumentoCompraService;
 using LiquidacionPeajesNew.Application.Services.TokenService;
-using LiquidacionPeajesNew.Application.Services.UserService;
+using LiquidacionPeajesNew.Application.Services.UsuarioService;
 using LiquidacionPeajesNew.Application.Services.ZonaGaritaService;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -21,7 +21,7 @@ namespace LiquidacionPeajesNew.Application.ServiceCollection
 
             // Application Service
             services.AddTransient<ILogService, LogService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IRutaService, RutaService>();
             services.AddScoped<IOficinaService, OficinaService>();

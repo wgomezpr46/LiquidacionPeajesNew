@@ -4,14 +4,14 @@ using LiquidacionPeajesNew.Application.Services.TokenService;
 using LiquidacionPeajesNew.Common.Enums;
 using LiquidacionPeajesNew.Domain.Interfaces;
 
-namespace LiquidacionPeajesNew.Application.Services.UserService
+namespace LiquidacionPeajesNew.Application.Services.UsuarioService
 {
-    public class UserService : IUserService
+    public class UsuarioService : IUsuarioService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUsuarioRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, ITokenService tokenService, IMapper mapper)
+        public UsuarioService(IUsuarioRepository userRepository, ITokenService tokenService, IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;

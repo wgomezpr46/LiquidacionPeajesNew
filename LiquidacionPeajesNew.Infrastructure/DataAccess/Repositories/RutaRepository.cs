@@ -7,25 +7,26 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 {
     public class RutaRepository : IRutaRepository
     {
-        private readonly BDCNTContext _context;
+        private readonly BDALMContext _context;
 
-        public RutaRepository(BDCNTContext context)
+        public RutaRepository(BDALMContext context)
         {
             _context = context;
         }
 
         public async Task<IEnumerable<RutaEntity>> GetAllAsync()
         {
-            return await _context.Set<RutaEntity>().ToListAsync();
+            return await _context.Rutas.Where(x => x.IdEstado == 1).ToListAsync();
         }
 
         public async Task<RutaEntity> GetByIdAsync(int id)
         {
-            return await _context.Set<RutaEntity>().FindAsync(id) ?? new RutaEntity();
+            return await _context.Rutas.FirstOrDefaultAsync(x => x.IdRuta == id) ?? new RutaEntity();
         }
 
         public async Task AddAsync(RutaEntity entity)
         {
+            entity.IdEstado = 1;
             await _context.Set<RutaEntity>().AddAsync(entity);
             await _context.SaveChangesAsync();
         }

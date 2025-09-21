@@ -16,10 +16,10 @@ namespace LiquidacionPeajesNew.Application.Services.TokenService
     public class TokenService : ITokenService
     {
         private readonly IConfiguration _configuration;
-        private readonly IUserRepository _userRepository;
+        private readonly IUsuarioRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public TokenService(IConfiguration configuration, IUserRepository userRepository, IMapper mapper)
+        public TokenService(IConfiguration configuration, IUsuarioRepository userRepository, IMapper mapper)
         {
             _configuration = configuration;
             _userRepository = userRepository;

@@ -15,6 +15,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             _zonaGaritaService = zonaGaritaService;
         }
 
+        // GET: api/ZonaGarita/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

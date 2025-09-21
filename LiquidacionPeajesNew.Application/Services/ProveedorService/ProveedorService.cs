@@ -33,7 +33,7 @@ namespace LiquidacionPeajesNew.Application.Services.ProveedorService
         public async Task<ApiResponse<RutaResponse>> GetByIdAsync(int id)
         {
             var entity = await _repository.GetByIdAsync(id);
-            if (entity == null)
+            if (entity.IdProveedorGarita == 0)
             {
                 return new ApiResponse<RutaResponse>(
                     status: false,
@@ -64,7 +64,7 @@ namespace LiquidacionPeajesNew.Application.Services.ProveedorService
         public async Task<ApiResponse<int>> UpdateAsync(ProveedorRequest request)
         {
             var entity = await _repository.GetByIdAsync(request.IdProveedorGarita);
-            if (entity == null)
+            if (entity.IdProveedorGarita == 0)
             {
                 return new ApiResponse<int>(
                     status: false,
@@ -86,7 +86,7 @@ namespace LiquidacionPeajesNew.Application.Services.ProveedorService
         public async Task<ApiResponse<int>> DeleteAsync(int id)
         {
             var entity = await _repository.GetByIdAsync(id);
-            if (entity == null)
+            if (entity.IdProveedorGarita == 0)
             {
                 return new ApiResponse<int>(
                     status: false,

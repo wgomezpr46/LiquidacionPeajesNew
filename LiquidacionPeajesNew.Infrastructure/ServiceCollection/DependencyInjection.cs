@@ -10,7 +10,7 @@ namespace LiquidacionPeajesNew.Infrastructure.ServiceCollection
         {
             // Domain Interfaces
             services.AddScoped<ILogRepository, LogRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IRutaRepository, RutaRepository>();
             services.AddScoped<IOficinaRepository, OficinaRepository>();
             services.AddScoped<IEstadoRepository, EstadoRepository>();

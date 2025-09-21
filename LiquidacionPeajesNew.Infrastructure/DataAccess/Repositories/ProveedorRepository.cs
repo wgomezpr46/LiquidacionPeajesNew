@@ -16,7 +16,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 
         public async Task<IEnumerable<ProveedorEntity>> GetAllAsync()
         {
-            return await _context.Proveedores.Include(p => p.TipoDocumentoCompra).ToListAsync();
+            return await _context.Proveedores.Where(x => x.IdEstado == 1).Include(p => p.TipoDocumentoCompra).ToListAsync();
         }
 
         public async Task<ProveedorEntity> GetByIdAsync(int id)
@@ -26,6 +26,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 
         public async Task AddAsync(ProveedorEntity entity)
         {
+            entity.IdEstado = 1;
             _context.Proveedores.Add(entity);
             await _context.SaveChangesAsync();
         }

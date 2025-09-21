@@ -1,4 +1,4 @@
-﻿using LiquidacionPeajesNew.Application.Services.UserService;
+﻿using LiquidacionPeajesNew.Application.Services.UsuarioService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LiquidacionPeajesNew.WebAPI.Controllers
@@ -6,15 +6,16 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IUsuarioService _userService;
 
-        public UserController(IUserService userService)
+        public UsuarioController(IUsuarioService userService)
         {
             _userService = userService;
         }
 
+        // GET: api/Usuario/GetById/0001
         [HttpGet("{code}")]
         public async Task<IActionResult> GetById(string code)
         {

@@ -15,6 +15,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             _service = service;
         }
 
+        // GET: api/TipoDocumentoCompra/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
