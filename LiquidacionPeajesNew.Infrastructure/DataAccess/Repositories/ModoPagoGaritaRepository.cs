@@ -5,68 +5,68 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 {
-    public class ZonaGaritaRepository : IZonaGaritaRepository
+    public class ModoPagoGaritaRepository : IModoPagoGaritaRepository
     {
         private readonly BDALMContext _context;
 
-        public ZonaGaritaRepository(BDALMContext context)
+        public ModoPagoGaritaRepository(BDALMContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<ZonaGaritaEntity>> GetAllAsync()
+        public async Task<IEnumerable<ModoPagoGaritaEntity>> GetAllAsync()
         {
-            return await _context.ZonaGaritas
+            return await _context.ModoPagoGaritas
                 .Where(x => x.IdEstado == 1)
                 .Include(x => x.EstadoEntity)
                 .ToListAsync();
         }
 
-        public async Task<ZonaGaritaEntity> GetByIdAsync(byte id)
+        public async Task<ModoPagoGaritaEntity> GetByIdAsync(short id)
         {
-            return await _context.ZonaGaritas
+            return await _context.ModoPagoGaritas
                 .Include(x => x.EstadoEntity)
-                .FirstOrDefaultAsync(x => x.IdZonaGarita == id) ?? new ZonaGaritaEntity();
+                .FirstOrDefaultAsync(x => x.IdModoPagoGarita == id) ?? new ModoPagoGaritaEntity();
         }
 
-        public async Task<ZonaGaritaEntity> GetByNameAsync(byte id, string name)
+        public async Task<ModoPagoGaritaEntity> GetByNameAsync(short id, string name)
         {
             if (id > 0)
             {
-                return await _context.ZonaGaritas
+                return await _context.ModoPagoGaritas
                     .Include(x => x.EstadoEntity)
-                    .FirstOrDefaultAsync(x => x.IdZonaGarita != id && x.ZonaGarita == name) ?? new ZonaGaritaEntity();
+                    .FirstOrDefaultAsync(x => x.IdModoPagoGarita != id && x.ModoPagoGarita == name) ?? new ModoPagoGaritaEntity();
             }
             else
             {
-                return await _context.ZonaGaritas
+                return await _context.ModoPagoGaritas
                     .Include(x => x.EstadoEntity)
-                    .FirstOrDefaultAsync(x => x.ZonaGarita == name) ?? new ZonaGaritaEntity();
+                    .FirstOrDefaultAsync(x => x.ModoPagoGarita == name) ?? new ModoPagoGaritaEntity();
             }
         }
 
-        public async Task AddAsync(ZonaGaritaEntity entity)
+        public async Task AddAsync(ModoPagoGaritaEntity entity)
         {
             entity.IdEstado = 1;
             _context.Entry(entity).State = EntityState.Added;
-            await _context.ZonaGaritas.AddAsync(entity);
+            await _context.ModoPagoGaritas.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(ZonaGaritaEntity entity)
+        public async Task UpdateAsync(ModoPagoGaritaEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            _context.ZonaGaritas.Update(entity);
+            _context.ModoPagoGaritas.Update(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(byte id)
+        public async Task DeleteAsync(short id)
         {
             var entity = await GetByIdAsync(id);
             if (entity != null)
             {
                 _context.Entry(entity).State = EntityState.Deleted;
-                _context.ZonaGaritas.Remove(entity);
+                _context.ModoPagoGaritas.Remove(entity);
                 await _context.SaveChangesAsync();
             }
         }

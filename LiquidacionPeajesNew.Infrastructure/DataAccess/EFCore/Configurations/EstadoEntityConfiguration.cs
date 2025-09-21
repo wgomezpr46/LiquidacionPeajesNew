@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Configurations
 {
-    internal class EstadoEntityConfiguration : IEntityTypeConfiguration<EstadoEntity>
+    public class EstadoEntityConfiguration : IEntityTypeConfiguration<EstadoEntity>
     {
         public void Configure(EntityTypeBuilder<EstadoEntity> builder)
         {

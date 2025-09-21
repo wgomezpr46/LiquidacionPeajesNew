@@ -1,5 +1,6 @@
 ﻿using LiquidacionPeajesNew.Application.Services.EstadoService;
 using LiquidacionPeajesNew.Application.Services.LogService;
+using LiquidacionPeajesNew.Application.Services.ModoPagoGaritaService;
 using LiquidacionPeajesNew.Application.Services.OficinaService;
 using LiquidacionPeajesNew.Application.Services.ProveedorService;
 using LiquidacionPeajesNew.Application.Services.RutaService;
@@ -29,6 +30,7 @@ namespace LiquidacionPeajesNew.Application.ServiceCollection
             services.AddScoped<IZonaGaritaService, ZonaGaritaService>();
             services.AddScoped<ITipoDocumentoCompraService, TipoDocumentoCompraService>();
             services.AddScoped<IProveedorService, ProveedorService>();
+            services.AddScoped<IModoPagoGaritaService, ModoPagoGaritaService>();
             services.AddHttpContextAccessor();
 
             return services;

@@ -8,7 +8,7 @@ namespace LiquidacionPeajesNew.Application.Mappings
     {
         public TipoDocumentoCompraProfile()
         {
-            CreateMap<TipoDocumentoCompraEntity, TipoDocumentoCompraResponse>();
+            CreateMap<TipoDocumentoCompraEntity, TipoDocumentoCompraResponse>().ForMember(dest => dest.NombreEstado, opt => opt.MapFrom(src => src.EstadoEntity.Estado));
         }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 {
-    internal class TipoDocumentoCompraRepository : ITipoDocumentoCompraRepository
+    public class TipoDocumentoCompraRepository : ITipoDocumentoCompraRepository
     {
         private readonly BDALMContext _context;
 
@@ -16,7 +16,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 
         public async Task<IEnumerable<TipoDocumentoCompraEntity>> GetAllAsync()
         {
-            return await _context.TipoDocumentoCompras.ToListAsync();
+            return await _context.TipoDocumentoCompras.Include(x => x.EstadoEntity).ToListAsync();
         }
     }
 }

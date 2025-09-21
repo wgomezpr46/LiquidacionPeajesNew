@@ -9,7 +9,10 @@ namespace LiquidacionPeajesNew.Application.Mappings
     {
         public ProveedorProfile()
         {
-            CreateMap<ProveedorEntity, ProveedorResponse>().ForMember(dest => dest.TipoDoc, opt => opt.MapFrom(src => src.TipoDocumentoCompra.TipoDoc));
+            CreateMap<ProveedorEntity, ProveedorResponse>()
+                .ForMember(dest => dest.NombreTipoDoc, opt => opt.MapFrom(src => src.TipoDocumentoCompraEntity.TipoDoc))
+                .ForMember(dest => dest.NombreEstado, opt => opt.MapFrom(src => src.EstadoEntity.Estado));
+
             CreateMap<ProveedorRequest, ProveedorEntity>();
         }
     }

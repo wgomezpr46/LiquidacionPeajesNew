@@ -16,23 +16,32 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 
         public async Task<IEnumerable<RutaEntity>> GetAllAsync()
         {
-            return await _context.Rutas.Where(x => x.IdEstado == 1).ToListAsync();
+            return await _context.Rutas
+                .Where(x => x.IdEstado == 1)
+                .Include(x => x.EstadoEntity)
+                .ToListAsync();
         }
 
         public async Task<RutaEntity> GetByIdAsync(int id)
         {
-            return await _context.Rutas.FirstOrDefaultAsync(x => x.IdRuta == id) ?? new RutaEntity();
+            return await _context.Rutas
+                .Include(x => x.EstadoEntity)
+                .FirstOrDefaultAsync(x => x.IdRuta == id) ?? new RutaEntity();
         }
 
         public async Task<RutaEntity> GetByOrigenDestinoAsync(int id, string IdOrigen, string IdDestino)
         {
             if (id > 0)
             {
-                return await _context.Rutas.FirstOrDefaultAsync(x => x.IdRuta != id && x.IdOrigen == IdOrigen && x.IdDestino == IdDestino) ?? new RutaEntity();
+                return await _context.Rutas
+                    .Include(x => x.EstadoEntity)
+                    .FirstOrDefaultAsync(x => x.IdRuta != id && x.IdOrigen == IdOrigen && x.IdDestino == IdDestino) ?? new RutaEntity();
             }
             else
             {
-                return await _context.Rutas.FirstOrDefaultAsync(x => x.IdOrigen == IdOrigen && x.IdDestino == IdDestino) ?? new RutaEntity();
+                return await _context.Rutas
+                    .Include(x => x.EstadoEntity)
+                    .FirstOrDefaultAsync(x => x.IdOrigen == IdOrigen && x.IdDestino == IdDestino) ?? new RutaEntity();
             }
         }
 

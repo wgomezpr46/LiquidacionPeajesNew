@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 {
-    internal class UsuarioRepository : IUsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
         private readonly BDALMContext _context;
 

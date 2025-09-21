@@ -4,7 +4,7 @@ using LiquidacionPeajesNew.Domain.Entities;
 
 namespace LiquidacionPeajesNew.Application.Mappings
 {
-    internal class EstadoProfile : Profile
+    public class EstadoProfile : Profile
     {
         public EstadoProfile()
         {

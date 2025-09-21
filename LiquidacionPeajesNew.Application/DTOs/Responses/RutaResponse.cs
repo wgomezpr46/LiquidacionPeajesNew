@@ -8,5 +8,6 @@
         public string NombreOrigen { get; set; }
         public string NombreDestino { get; set; }
         public short IdEstado { get; set; }
+        public string NombreEstado { get; set; }
     }
 }

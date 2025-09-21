@@ -10,6 +10,8 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Configurations
         {
             builder.ToTable("tb_LPE_ZonaGarita").HasKey(x => x.IdZonaGarita);
             builder.Property(z => z.IdZonaGarita).ValueGeneratedOnAdd();
+
+            builder.HasOne(p => p.EstadoEntity).WithMany().HasForeignKey(p => p.IdEstado);
         }
     }
 }

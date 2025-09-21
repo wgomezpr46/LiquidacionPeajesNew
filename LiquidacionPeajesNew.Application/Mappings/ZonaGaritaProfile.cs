@@ -9,7 +9,7 @@ namespace LiquidacionPeajesNew.Application.Mappings
     {
         public ZonaGaritaProfile()
         {
-            CreateMap<ZonaGaritaEntity, ZonaGaritaResponse>().ForMember(dest => dest.IdZonaGarita, opt => opt.Ignore());
+            CreateMap<ZonaGaritaEntity, ZonaGaritaResponse>().ForMember(dest => dest.NombreEstado, opt => opt.MapFrom(src => src.EstadoEntity.Estado));
             CreateMap<ZonaGaritaRequest, ZonaGaritaEntity>();
         }
     }

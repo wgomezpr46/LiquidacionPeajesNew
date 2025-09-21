@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace LiquidacionPeajesNew.Application.Services.LogService
 {
-    internal class LogService : ILogService
+    public class LogService : ILogService
     {
         private readonly ILogRepository _logRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;

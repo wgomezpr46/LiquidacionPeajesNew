@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 {
-    internal class ProveedorRepository : IProveedorRepository
+    public class ProveedorRepository : IProveedorRepository
     {
         private readonly BDALMContext _context;
 
@@ -16,23 +16,39 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 
         public async Task<IEnumerable<ProveedorEntity>> GetAllAsync()
         {
-            return await _context.Proveedores.Where(x => x.IdEstado == 1).Include(p => p.TipoDocumentoCompra).ToListAsync();
+            return await _context.Proveedores
+                .Where(x => x.IdEstado == 1)
+                .Include(p => p.TipoDocumentoCompraEntity)
+                .Include(p => p.EstadoEntity)
+                .ToListAsync();
         }
 
         public async Task<ProveedorEntity> GetByIdAsync(int id)
         {
-            return await _context.Proveedores.Where(p => p.IdProveedorGarita == id).Include(p => p.TipoDocumentoCompra).FirstOrDefaultAsync() ?? new ProveedorEntity();
+            return await _context.Proveedores
+                .Where(p => p.IdProveedorGarita == id)
+                .Include(p => p.TipoDocumentoCompraEntity)
+                .Include(p => p.EstadoEntity)
+                .FirstOrDefaultAsync() ?? new ProveedorEntity();
         }
 
         public async Task<ProveedorEntity> GetByRUCAsync(int id, string ruc)
         {
             if (id > 0)
             {
-                return await _context.Proveedores.Where(p => p.IdProveedorGarita != id && p.Ruc == ruc).Include(p => p.TipoDocumentoCompra).FirstOrDefaultAsync() ?? new ProveedorEntity();
+                return await _context.Proveedores
+                    .Where(p => p.IdProveedorGarita != id && p.Ruc == ruc)
+                    .Include(p => p.TipoDocumentoCompraEntity)
+                    .Include(p => p.EstadoEntity)
+                    .FirstOrDefaultAsync() ?? new ProveedorEntity();
             }
             else
             {
-                return await _context.Proveedores.Where(p => p.Ruc == ruc).Include(p => p.TipoDocumentoCompra).FirstOrDefaultAsync() ?? new ProveedorEntity();
+                return await _context.Proveedores
+                    .Where(p => p.Ruc == ruc)
+                    .Include(p => p.TipoDocumentoCompraEntity)
+                    .Include(p => p.EstadoEntity)
+                    .FirstOrDefaultAsync() ?? new ProveedorEntity();
             }
         }
 

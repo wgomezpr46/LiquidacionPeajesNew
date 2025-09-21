@@ -10,6 +10,7 @@
         public string IdTipoDocEmite { get; set; }
         public short IdEstado { get; set; }
 
-        public TipoDocumentoCompraEntity TipoDocumentoCompra { get; set; }
+        public TipoDocumentoCompraEntity TipoDocumentoCompraEntity { get; set; }
+        public EstadoEntity EstadoEntity { get; set; }
     }
 }

@@ -91,7 +91,7 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
         {
             var mapped = _mapper.Map<RutaEntity>(request);
 
-            var existeEntity = await _rutaRepository.GetByOrigenDestinoAsync(mapped.IdRuta,mapped.IdOrigen, mapped.IdDestino);
+            var existeEntity = await _rutaRepository.GetByOrigenDestinoAsync(mapped.IdRuta, mapped.IdOrigen, mapped.IdDestino);
             if (existeEntity.IdRuta > 0)
             {
                 return new ApiResponse<int>(

@@ -4,7 +4,7 @@ using LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Contexts;
 
 namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 {
-    internal class LogRepository : ILogRepository
+    public class LogRepository : ILogRepository
     {
         private readonly BDALMContext _context;
 

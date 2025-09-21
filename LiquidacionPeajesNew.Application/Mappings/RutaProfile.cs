@@ -9,7 +9,7 @@ namespace LiquidacionPeajesNew.Application.Mappings
     {
         public RutaProfile()
         {
-            CreateMap<RutaEntity, RutaResponse>();
+            CreateMap<RutaEntity, RutaResponse>().ForMember(dest => dest.NombreEstado, opt => opt.MapFrom(src => src.EstadoEntity.Estado));
             CreateMap<RutaRequest, RutaEntity>();
         }
     }

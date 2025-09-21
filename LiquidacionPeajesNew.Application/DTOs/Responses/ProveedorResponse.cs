@@ -8,6 +8,8 @@
         public bool Impuesto { get; set; }
         public bool Detraccion { get; set; }
         public string IdTipoDocEmite { get; set; }
-        public string TipoDoc { get; set; }
+        public string NombreTipoDoc { get; set; }
+        public short IdEstado { get; set; }
+        public string NombreEstado { get; set; }
     }
 }

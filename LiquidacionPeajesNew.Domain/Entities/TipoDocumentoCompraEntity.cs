@@ -5,5 +5,7 @@
         public string IdTipoDoc { get; set; }
         public string TipoDoc { get; set; }
         public short IdEstado { get; set; }
+
+        public EstadoEntity EstadoEntity { get; set; }
     }
 }
