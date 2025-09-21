@@ -16,7 +16,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             _rutaService = rutaService;
         }
 
-        // ✅ GET: api/ruta
+        // ✅ GET: api/ruta/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -24,7 +24,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             return Ok(response);
         }
 
-        // ✅ GET: api/ruta/5
+        // ✅ GET: api/ruta/GetById/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -39,7 +39,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ POST: api/ruta
+        // ✅ POST: api/ruta/Create
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] RutaRequest request)
         {
@@ -54,7 +54,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ PUT: api/ruta/5
+        // ✅ PUT: api/ruta/Update/5
         [HttpPut()]
         public async Task<IActionResult> Update([FromBody] RutaRequest request)
         {
@@ -69,7 +69,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ DELETE: api/ruta/5
+        // ✅ DELETE: api/ruta/Delete/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -20,8 +20,8 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
 
         public async Task<ApiResponse<IEnumerable<RutaResponse>>> GetAllAsync()
         {
-            var rutas = await _repository.GetAllAsync();
-            var mapped = _mapper.Map<IEnumerable<RutaResponse>>(rutas);
+            var entities = await _repository.GetAllAsync();
+            var mapped = _mapper.Map<IEnumerable<RutaResponse>>(entities);
 
             return new ApiResponse<IEnumerable<RutaResponse>>(
                 status: true,
@@ -32,61 +32,61 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
 
         public async Task<ApiResponse<RutaResponse>> GetByIdAsync(int id)
         {
-            var ruta = await _repository.GetByIdAsync(id);
-            if (ruta == null)
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null)
             {
                 return new ApiResponse<RutaResponse>(
                     status: false,
                     value: null,
-                    messageCode: AppResponseCode.OperationCompletedSuccessfully
+                    messageCode: AppResponseCode.RecordNotFoundInDatabase
                 );
             }
 
             return new ApiResponse<RutaResponse>(
                 status: true,
-                value: _mapper.Map<RutaResponse>(ruta),
+                value: _mapper.Map<RutaResponse>(entity),
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
         public async Task<ApiResponse<int>> AddAsync(RutaRequest request)
         {
-            var ruta = _mapper.Map<RutaEntity>(request);
-            await _repository.AddAsync(ruta);
+            var entity = _mapper.Map<RutaEntity>(request);
+            await _repository.AddAsync(entity);
 
             return new ApiResponse<int>(
                 status: true,
-                value: ruta.IdRuta,
+                value: entity.IdRuta,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
         public async Task<ApiResponse<int>> UpdateAsync(RutaRequest request)
         {
-            var ruta = await _repository.GetByIdAsync(request.IdRuta);
-            if (ruta == null)
+            var entity = await _repository.GetByIdAsync(request.IdRuta);
+            if (entity == null)
             {
                 return new ApiResponse<int>(
                     status: false,
-                value: ruta.IdRuta,
+                    value: entity.IdRuta,
                     messageCode: AppResponseCode.RecordNotFoundInDatabase
                 );
             }
 
-            _mapper.Map(request, ruta);
-            await _repository.UpdateAsync(ruta);
+            _mapper.Map(request, entity);
+            await _repository.UpdateAsync(entity);
 
             return new ApiResponse<int>(
                 status: true,
-                value: ruta.IdRuta,
+                value: entity.IdRuta,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
         public async Task<ApiResponse<int>> DeleteAsync(int id)
         {
-            var ruta = await _repository.GetByIdAsync(id);
-            if (ruta == null)
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null)
             {
                 return new ApiResponse<int>(
                     status: false,
@@ -99,7 +99,7 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
 
             return new ApiResponse<int>(
                 status: true,
-                value: ruta.IdRuta,
+                value: entity.IdRuta,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }

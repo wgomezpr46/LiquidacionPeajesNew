@@ -24,15 +24,15 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
             return await _context.Set<RutaEntity>().FindAsync(id) ?? new RutaEntity();
         }
 
-        public async Task AddAsync(RutaEntity ruta)
+        public async Task AddAsync(RutaEntity entity)
         {
-            await _context.Set<RutaEntity>().AddAsync(ruta);
+            await _context.Set<RutaEntity>().AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(RutaEntity ruta)
+        public async Task UpdateAsync(RutaEntity entity)
         {
-            _context.Set<RutaEntity>().Update(ruta);
+            _context.Set<RutaEntity>().Update(entity);
             await _context.SaveChangesAsync();
         }
 
