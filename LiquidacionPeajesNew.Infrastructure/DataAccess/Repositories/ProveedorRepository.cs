@@ -32,24 +32,10 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
                 .FirstOrDefaultAsync() ?? new ProveedorEntity();
         }
 
-        public async Task<ProveedorEntity> GetByRUCAsync(int id, string ruc)
+        public async Task<bool> ExistsAsync(int id, string ruc)
         {
-            if (id > 0)
-            {
-                return await _context.Proveedores
-                    .Where(p => p.IdProveedorGarita != id && p.Ruc == ruc)
-                    .Include(p => p.TipoDocumentoCompraEntity)
-                    .Include(p => p.EstadoEntity)
-                    .FirstOrDefaultAsync() ?? new ProveedorEntity();
-            }
-            else
-            {
-                return await _context.Proveedores
-                    .Where(p => p.Ruc == ruc)
-                    .Include(p => p.TipoDocumentoCompraEntity)
-                    .Include(p => p.EstadoEntity)
-                    .FirstOrDefaultAsync() ?? new ProveedorEntity();
-            }
+            return await _context.Proveedores
+                .AnyAsync(x => x.Ruc == ruc && (id == 0 || x.IdProveedorGarita != id));
         }
 
         public async Task AddAsync(ProveedorEntity entity)

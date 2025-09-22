@@ -29,20 +29,10 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
                 .FirstOrDefaultAsync(x => x.IdRuta == id) ?? new RutaEntity();
         }
 
-        public async Task<RutaEntity> GetByOrigenDestinoAsync(int id, string IdOrigen, string IdDestino)
+        public async Task<bool> ExistsAsync(int id, string IdOrigen, string IdDestino)
         {
-            if (id > 0)
-            {
-                return await _context.Rutas
-                    .Include(x => x.EstadoEntity)
-                    .FirstOrDefaultAsync(x => x.IdRuta != id && x.IdOrigen == IdOrigen && x.IdDestino == IdDestino) ?? new RutaEntity();
-            }
-            else
-            {
-                return await _context.Rutas
-                    .Include(x => x.EstadoEntity)
-                    .FirstOrDefaultAsync(x => x.IdOrigen == IdOrigen && x.IdDestino == IdDestino) ?? new RutaEntity();
-            }
+            return await _context.Rutas
+                .AnyAsync(x => x.IdOrigen == IdOrigen && x.IdDestino == IdDestino && (id == 0 || x.IdRuta != id));
         }
 
         public async Task AddAsync(RutaEntity entity)

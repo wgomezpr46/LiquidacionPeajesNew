@@ -53,12 +53,12 @@ namespace LiquidacionPeajesNew.Application.Services.ProveedorService
         {
             var mapped = _mapper.Map<ProveedorEntity>(request);
 
-            var existeEntity = await _repository.GetByRUCAsync(mapped.IdProveedorGarita, mapped.Ruc);
-            if (existeEntity.IdProveedorGarita > 0)
+            var existe = await _repository.ExistsAsync(mapped.IdProveedorGarita, mapped.Ruc);
+            if (existe)
             {
                 return new ApiResponse<int>(
                     status: false,
-                    value: existeEntity.IdProveedorGarita,
+                    value: 0,
                     messageCode: AppResponseCode.RecordAlreadyExists
                 );
             }
@@ -76,12 +76,12 @@ namespace LiquidacionPeajesNew.Application.Services.ProveedorService
         {
             var mapped = _mapper.Map<ProveedorEntity>(request);
 
-            var existeEntity = await _repository.GetByRUCAsync(mapped.IdProveedorGarita, mapped.Ruc);
-            if (existeEntity.IdProveedorGarita > 0)
+            var existe = await _repository.ExistsAsync(mapped.IdProveedorGarita, mapped.Ruc);
+            if (existe)
             {
                 return new ApiResponse<int>(
                     status: false,
-                    value: existeEntity.IdProveedorGarita,
+                    value: 0,
                     messageCode: AppResponseCode.RecordAlreadyExists
                 );
             }

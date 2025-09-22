@@ -55,12 +55,12 @@ namespace LiquidacionPeajesNew.Application.Services.ZonaGaritaService
         {
             var mapped = _mapper.Map<ZonaGaritaEntity>(request);
 
-            var existeEntity = await _repository.GetByNameAsync(mapped.IdZonaGarita, mapped.ZonaGarita);
-            if (existeEntity.IdZonaGarita > 0)
+            var existe = await _repository.ExistsAsync(mapped.IdZonaGarita, mapped.ZonaGarita);
+            if (existe)
             {
                 return new ApiResponse<int>(
                     status: false,
-                    value: existeEntity.IdZonaGarita,
+                    value: 0,
                     messageCode: AppResponseCode.RecordAlreadyExists
                 );
             }
@@ -78,12 +78,12 @@ namespace LiquidacionPeajesNew.Application.Services.ZonaGaritaService
         {
             var mapped = _mapper.Map<ZonaGaritaEntity>(request);
 
-            var existeEntity = await _repository.GetByNameAsync(mapped.IdZonaGarita, mapped.ZonaGarita);
-            if (existeEntity.IdZonaGarita > 0)
+            var existe = await _repository.ExistsAsync(mapped.IdZonaGarita, mapped.ZonaGarita);
+            if (existe)
             {
                 return new ApiResponse<int>(
                     status: false,
-                    value: existeEntity.IdZonaGarita,
+                    value: 0,
                     messageCode: AppResponseCode.RecordAlreadyExists
                 );
             }

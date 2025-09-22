@@ -6,7 +6,7 @@ namespace LiquidacionPeajesNew.Domain.Interfaces
     {
         Task<IEnumerable<ModoPagoGaritaEntity>> GetAllAsync();
         Task<ModoPagoGaritaEntity> GetByIdAsync(short id);
-        Task<ModoPagoGaritaEntity> GetByNameAsync(short id, string name);
+        Task<bool> ExistsAsync(short id, string name);
         Task AddAsync(ModoPagoGaritaEntity entity);
         Task UpdateAsync(ModoPagoGaritaEntity entity);
         Task DeleteAsync(short id);

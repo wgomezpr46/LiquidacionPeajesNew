@@ -68,12 +68,12 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
         {
             var mapped = _mapper.Map<RutaEntity>(request);
 
-            var existeEntity = await _rutaRepository.GetByOrigenDestinoAsync(mapped.IdRuta, mapped.IdOrigen, mapped.IdDestino);
-            if (existeEntity.IdRuta > 0)
+            var existe = await _rutaRepository.ExistsAsync(mapped.IdRuta, mapped.IdOrigen, mapped.IdDestino);
+            if (existe)
             {
                 return new ApiResponse<int>(
                     status: false,
-                    value: existeEntity.IdRuta,
+                    value: 0,
                     messageCode: AppResponseCode.RecordAlreadyExists
                 );
             }
@@ -91,12 +91,12 @@ namespace LiquidacionPeajesNew.Application.Services.RutaService
         {
             var mapped = _mapper.Map<RutaEntity>(request);
 
-            var existeEntity = await _rutaRepository.GetByOrigenDestinoAsync(mapped.IdRuta, mapped.IdOrigen, mapped.IdDestino);
-            if (existeEntity.IdRuta > 0)
+            var existe = await _rutaRepository.ExistsAsync(mapped.IdRuta, mapped.IdOrigen, mapped.IdDestino);
+            if (existe)
             {
                 return new ApiResponse<int>(
                     status: false,
-                    value: existeEntity.IdRuta,
+                    value: 0,
                     messageCode: AppResponseCode.RecordAlreadyExists
                 );
             }

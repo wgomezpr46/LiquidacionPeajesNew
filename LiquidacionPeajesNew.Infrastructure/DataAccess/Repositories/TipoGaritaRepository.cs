@@ -5,48 +5,50 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 {
-    public class ModoPagoGaritaRepository : IModoPagoGaritaRepository
+    public class TipoGaritaRepository : ITipoGaritaRepository
     {
         private readonly BDALMContext _context;
 
-        public ModoPagoGaritaRepository(BDALMContext context)
+        public TipoGaritaRepository(BDALMContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<ModoPagoGaritaEntity>> GetAllAsync()
+        public async Task<IEnumerable<TipoGaritaEntity>> GetAllAsync()
         {
-            return await _context.ModoPagoGaritas
+            return await _context.TipoGaritas
                 .Where(x => x.IdEstado == 1)
+                .Include(x => x.ModoPagoGaritaEntity)
                 .Include(x => x.EstadoEntity)
                 .ToListAsync();
         }
 
-        public async Task<ModoPagoGaritaEntity> GetByIdAsync(short id)
+        public async Task<TipoGaritaEntity> GetByIdAsync(short id)
         {
-            return await _context.ModoPagoGaritas
+            return await _context.TipoGaritas
+                .Include(x => x.ModoPagoGaritaEntity)
                 .Include(x => x.EstadoEntity)
-                .FirstOrDefaultAsync(x => x.IdModoPagoGarita == id) ?? new ModoPagoGaritaEntity();
+                .FirstOrDefaultAsync(x => x.IdTipoGarita == id) ?? new TipoGaritaEntity();
         }
 
         public async Task<bool> ExistsAsync(short id, string name)
         {
-            return await _context.ModoPagoGaritas
-                .AnyAsync(x => x.ModoPagoGarita == name && (id == 0 || x.IdModoPagoGarita != id));
+            return await _context.TipoGaritas
+                .AnyAsync(x => x.TipoGarita == name && (id == 0 || x.IdTipoGarita != id));
         }
 
-        public async Task AddAsync(ModoPagoGaritaEntity entity)
+        public async Task AddAsync(TipoGaritaEntity entity)
         {
             entity.IdEstado = 1;
             _context.Entry(entity).State = EntityState.Added;
-            await _context.ModoPagoGaritas.AddAsync(entity);
+            await _context.TipoGaritas.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(ModoPagoGaritaEntity entity)
+        public async Task UpdateAsync(TipoGaritaEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            _context.ModoPagoGaritas.Update(entity);
+            _context.TipoGaritas.Update(entity);
             await _context.SaveChangesAsync();
         }
 
@@ -56,7 +58,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
             if (entity != null)
             {
                 _context.Entry(entity).State = EntityState.Deleted;
-                _context.ModoPagoGaritas.Remove(entity);
+                _context.TipoGaritas.Remove(entity);
                 await _context.SaveChangesAsync();
             }
         }

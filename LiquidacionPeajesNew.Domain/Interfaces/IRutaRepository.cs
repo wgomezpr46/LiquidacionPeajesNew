@@ -6,7 +6,7 @@ namespace LiquidacionPeajesNew.Domain.Interfaces
     {
         Task<IEnumerable<RutaEntity>> GetAllAsync();
         Task<RutaEntity> GetByIdAsync(int id);
-        Task<RutaEntity> GetByOrigenDestinoAsync(int id, string IdOrigen, string IdDestino);
+        Task<bool> ExistsAsync(int id, string IdOrigen, string IdDestino);
         Task AddAsync(RutaEntity entity);
         Task UpdateAsync(RutaEntity entity);
         Task DeleteAsync(int id);

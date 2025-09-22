@@ -29,20 +29,10 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
                 .FirstOrDefaultAsync(x => x.IdZonaGarita == id) ?? new ZonaGaritaEntity();
         }
 
-        public async Task<ZonaGaritaEntity> GetByNameAsync(byte id, string name)
+        public async Task<bool> ExistsAsync(byte id, string name)
         {
-            if (id > 0)
-            {
-                return await _context.ZonaGaritas
-                    .Include(x => x.EstadoEntity)
-                    .FirstOrDefaultAsync(x => x.IdZonaGarita != id && x.ZonaGarita == name) ?? new ZonaGaritaEntity();
-            }
-            else
-            {
-                return await _context.ZonaGaritas
-                    .Include(x => x.EstadoEntity)
-                    .FirstOrDefaultAsync(x => x.ZonaGarita == name) ?? new ZonaGaritaEntity();
-            }
+            return await _context.ZonaGaritas
+                .AnyAsync(x => x.ZonaGarita == name && (id == 0 || x.IdZonaGarita != id));
         }
 
         public async Task AddAsync(ZonaGaritaEntity entity)

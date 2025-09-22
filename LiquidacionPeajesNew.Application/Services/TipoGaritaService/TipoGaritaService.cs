@@ -5,57 +5,57 @@ using LiquidacionPeajesNew.Common.Enums;
 using LiquidacionPeajesNew.Domain.Entities;
 using LiquidacionPeajesNew.Domain.Interfaces;
 
-namespace LiquidacionPeajesNew.Application.Services.ModoPagoGaritaService
+namespace LiquidacionPeajesNew.Application.Services.TipoGaritaService
 {
-    public class ModoPagoGaritaService : IModoPagoGaritaService
+    public class TipoGaritaService : ITipoGaritaService
     {
-        private readonly IModoPagoGaritaRepository _repository;
+        private readonly ITipoGaritaRepository _repository;
         private readonly IMapper _mapper;
 
-        public ModoPagoGaritaService(IModoPagoGaritaRepository repository, IMapper mapper)
+        public TipoGaritaService(ITipoGaritaRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public async Task<ApiResponse<IEnumerable<ModoPagoGaritaResponse>>> GetAllAsync()
+        public async Task<ApiResponse<IEnumerable<TipoGaritaResponse>>> GetAllAsync()
         {
             var data = await _repository.GetAllAsync();
-            var mapped = _mapper.Map<IEnumerable<ModoPagoGaritaResponse>>(data);
+            var mapped = _mapper.Map<IEnumerable<TipoGaritaResponse>>(data);
 
-            return new ApiResponse<IEnumerable<ModoPagoGaritaResponse>>(
+            return new ApiResponse<IEnumerable<TipoGaritaResponse>>(
                 status: true,
                 value: mapped,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
-        public async Task<ApiResponse<ModoPagoGaritaResponse>> GetByIdAsync(short id)
+        public async Task<ApiResponse<TipoGaritaResponse>> GetByIdAsync(short id)
         {
             var entity = await _repository.GetByIdAsync(id);
-            if (entity.IdModoPagoGarita == 0)
+            if (entity.IdTipoGarita == 0)
             {
-                return new ApiResponse<ModoPagoGaritaResponse>(
+                return new ApiResponse<TipoGaritaResponse>(
                     status: false,
                     value: null,
                     messageCode: AppResponseCode.RecordNotFoundInDatabase
                 );
             }
 
-            var mapped = _mapper.Map<ModoPagoGaritaResponse>(entity);
+            var mapped = _mapper.Map<TipoGaritaResponse>(entity);
 
-            return new ApiResponse<ModoPagoGaritaResponse>(
+            return new ApiResponse<TipoGaritaResponse>(
                 status: true,
                 value: mapped,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
-        public async Task<ApiResponse<int>> AddAsync(ModoPagoGaritaRequest request)
+        public async Task<ApiResponse<int>> AddAsync(TipoGaritaRequest request)
         {
-            var mapped = _mapper.Map<ModoPagoGaritaEntity>(request);
+            var mapped = _mapper.Map<TipoGaritaEntity>(request);
 
-            var existe = await _repository.ExistsAsync(mapped.IdModoPagoGarita, mapped.ModoPagoGarita);
+            var existe = await _repository.ExistsAsync(mapped.IdTipoGarita, mapped.TipoGarita);
             if (existe)
             {
                 return new ApiResponse<int>(
@@ -69,16 +69,16 @@ namespace LiquidacionPeajesNew.Application.Services.ModoPagoGaritaService
 
             return new ApiResponse<int>(
                 status: true,
-                value: mapped.IdModoPagoGarita,
+                value: mapped.IdTipoGarita,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
-        public async Task<ApiResponse<int>> UpdateAsync(ModoPagoGaritaRequest request)
+        public async Task<ApiResponse<int>> UpdateAsync(TipoGaritaRequest request)
         {
-            var mapped = _mapper.Map<ModoPagoGaritaEntity>(request);
+            var mapped = _mapper.Map<TipoGaritaEntity>(request);
 
-            var existe = await _repository.ExistsAsync(mapped.IdModoPagoGarita, mapped.ModoPagoGarita);
+            var existe = await _repository.ExistsAsync(mapped.IdTipoGarita, mapped.TipoGarita);
             if (existe)
             {
                 return new ApiResponse<int>(
@@ -92,7 +92,7 @@ namespace LiquidacionPeajesNew.Application.Services.ModoPagoGaritaService
 
             return new ApiResponse<int>(
                 status: true,
-                value: mapped.IdModoPagoGarita,
+                value: mapped.IdTipoGarita,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
@@ -100,7 +100,7 @@ namespace LiquidacionPeajesNew.Application.Services.ModoPagoGaritaService
         public async Task<ApiResponse<int>> DeleteAsync(short id)
         {
             var entity = await _repository.GetByIdAsync(id);
-            if (entity.IdModoPagoGarita == 0)
+            if (entity.IdTipoGarita == 0)
             {
                 return new ApiResponse<int>(
                     status: false,
@@ -113,7 +113,7 @@ namespace LiquidacionPeajesNew.Application.Services.ModoPagoGaritaService
 
             return new ApiResponse<int>(
                 status: true,
-                value: entity.IdModoPagoGarita,
+                value: entity.IdTipoGarita,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
