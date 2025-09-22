@@ -5,60 +5,60 @@ using LiquidacionPeajesNew.Common.Enums;
 using LiquidacionPeajesNew.Domain.Entities;
 using LiquidacionPeajesNew.Domain.Interfaces;
 
-namespace LiquidacionPeajesNew.Application.Services.ZonaGaritaService
+namespace LiquidacionPeajesNew.Application.Services.GaritaService
 {
-    public class ZonaGaritaService : IZonaGaritaService
+    public class GaritaService : IGaritaService
     {
-        private readonly IZonaGaritaRepository _repository;
+        private readonly IGaritaRepository _repository;
         private readonly IMapper _mapper;
 
-        public ZonaGaritaService(IZonaGaritaRepository repository, IMapper mapper)
+        public GaritaService(IGaritaRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public async Task<ApiResponse<IEnumerable<ZonaGaritaResponse>>> GetAllAsync()
+        public async Task<ApiResponse<IEnumerable<GaritaResponse>>> GetAllAsync()
         {
             var data = await _repository.GetAllAsync();
-            var mapped = _mapper.Map<IEnumerable<ZonaGaritaResponse>>(data);
+            var mapped = _mapper.Map<IEnumerable<GaritaResponse>>(data);
 
-            return new ApiResponse<IEnumerable<ZonaGaritaResponse>>(
+            return new ApiResponse<IEnumerable<GaritaResponse>>(
                 status: true,
                 value: mapped,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
-        public async Task<ApiResponse<ZonaGaritaResponse>> GetByIdAsync(short id)
+        public async Task<ApiResponse<GaritaResponse>> GetByIdAsync(long id)
         {
             var entity = await _repository.GetByIdAsync(id);
-            if (entity.IdZonaGarita == 0)
+            if (entity.IdGarita == 0)
             {
-                return new ApiResponse<ZonaGaritaResponse>(
+                return new ApiResponse<GaritaResponse>(
                     status: false,
                     value: null,
                     messageCode: AppResponseCode.RecordNotFoundInDatabase
                 );
             }
 
-            var mapped = _mapper.Map<ZonaGaritaResponse>(entity);
+            var mapped = _mapper.Map<GaritaResponse>(entity);
 
-            return new ApiResponse<ZonaGaritaResponse>(
+            return new ApiResponse<GaritaResponse>(
                 status: true,
                 value: mapped,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
-        public async Task<ApiResponse<short>> AddAsync(ZonaGaritaRequest request)
+        public async Task<ApiResponse<long>> AddAsync(GaritaRequest request)
         {
-            var mapped = _mapper.Map<ZonaGaritaEntity>(request);
+            var mapped = _mapper.Map<GaritaEntity>(request);
 
-            var existe = await _repository.ExistsAsync(mapped.IdZonaGarita, mapped.ZonaGarita);
+            var existe = await _repository.ExistsAsync(mapped.IdGarita, mapped.NombreGarita, mapped.RucProveedor);
             if (existe)
             {
-                return new ApiResponse<short>(
+                return new ApiResponse<long>(
                     status: false,
                     value: 0,
                     messageCode: AppResponseCode.RecordAlreadyExists
@@ -67,21 +67,21 @@ namespace LiquidacionPeajesNew.Application.Services.ZonaGaritaService
 
             await _repository.AddAsync(mapped);
 
-            return new ApiResponse<short>(
+            return new ApiResponse<long>(
                 status: true,
-                value: mapped.IdZonaGarita,
+                value: mapped.IdGarita,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
-        public async Task<ApiResponse<short>> UpdateAsync(ZonaGaritaRequest request)
+        public async Task<ApiResponse<long>> UpdateAsync(GaritaRequest request)
         {
-            var mapped = _mapper.Map<ZonaGaritaEntity>(request);
+            var mapped = _mapper.Map<GaritaEntity>(request);
 
-            var existe = await _repository.ExistsAsync(mapped.IdZonaGarita, mapped.ZonaGarita);
+            var existe = await _repository.ExistsAsync(mapped.IdGarita, mapped.NombreGarita, mapped.RucProveedor);
             if (existe)
             {
-                return new ApiResponse<short>(
+                return new ApiResponse<long>(
                     status: false,
                     value: 0,
                     messageCode: AppResponseCode.RecordAlreadyExists
@@ -90,19 +90,19 @@ namespace LiquidacionPeajesNew.Application.Services.ZonaGaritaService
 
             await _repository.UpdateAsync(mapped);
 
-            return new ApiResponse<short>(
+            return new ApiResponse<long>(
                 status: true,
-                value: mapped.IdZonaGarita,
+                value: mapped.IdGarita,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }
 
-        public async Task<ApiResponse<short>> DeleteAsync(short id)
+        public async Task<ApiResponse<long>> DeleteAsync(long id)
         {
             var entity = await _repository.GetByIdAsync(id);
-            if (entity.IdZonaGarita == 0)
+            if (entity.IdGarita == 0)
             {
-                return new ApiResponse<short>(
+                return new ApiResponse<long>(
                     status: false,
                     value: id,
                     messageCode: AppResponseCode.RecordNotFoundInDatabase
@@ -111,9 +111,9 @@ namespace LiquidacionPeajesNew.Application.Services.ZonaGaritaService
 
             await _repository.DeleteAsync(id);
 
-            return new ApiResponse<short>(
+            return new ApiResponse<long>(
                 status: true,
-                value: entity.IdZonaGarita,
+                value: entity.IdGarita,
                 messageCode: AppResponseCode.OperationCompletedSuccessfully
             );
         }

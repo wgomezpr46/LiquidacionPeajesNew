@@ -2,7 +2,7 @@
 {
     public class ZonaGaritaEntity
     {
-        public byte IdZonaGarita { get; set; }
+        public short IdZonaGarita { get; set; }
         public string ZonaGarita { get; set; }
         public short IdEstado { get; set; }
 

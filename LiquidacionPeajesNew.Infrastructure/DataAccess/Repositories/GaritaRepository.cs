@@ -5,58 +5,62 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 {
-    public class ZonaGaritaRepository : IZonaGaritaRepository
+    public class GaritaRepository : IGaritaRepository
     {
         private readonly BDALMContext _context;
 
-        public ZonaGaritaRepository(BDALMContext context)
+        public GaritaRepository(BDALMContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<ZonaGaritaEntity>> GetAllAsync()
+        public async Task<IEnumerable<GaritaEntity>> GetAllAsync()
         {
-            return await _context.ZonaGaritas
+            return await _context.Garitas
                 .Where(x => x.IdEstado == 1)
+                .Include(x => x.ZonaGaritaEntity)
+                .Include(x => x.TipoGaritaEntity)
                 .Include(x => x.EstadoEntity)
                 .ToListAsync();
         }
 
-        public async Task<ZonaGaritaEntity> GetByIdAsync(short id)
+        public async Task<GaritaEntity> GetByIdAsync(long id)
         {
-            return await _context.ZonaGaritas
+            return await _context.Garitas
+                .Include(x => x.ZonaGaritaEntity)
+                .Include(x => x.TipoGaritaEntity)
                 .Include(x => x.EstadoEntity)
-                .FirstOrDefaultAsync(x => x.IdZonaGarita == id) ?? new ZonaGaritaEntity();
+                .FirstOrDefaultAsync(x => x.IdTipoGarita == id) ?? new GaritaEntity();
         }
 
-        public async Task<bool> ExistsAsync(short id, string name)
+        public async Task<bool> ExistsAsync(long id, string name, string ruc)
         {
-            return await _context.ZonaGaritas
-                .AnyAsync(x => x.ZonaGarita == name && (id == 0 || x.IdZonaGarita != id));
+            return await _context.Garitas
+                .AnyAsync(x => x.NombreGarita == name && x.RucProveedor == ruc && (id == 0 || x.IdGarita != id));
         }
 
-        public async Task AddAsync(ZonaGaritaEntity entity)
+        public async Task AddAsync(GaritaEntity entity)
         {
             entity.IdEstado = 1;
             _context.Entry(entity).State = EntityState.Added;
-            await _context.ZonaGaritas.AddAsync(entity);
+            await _context.Garitas.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(ZonaGaritaEntity entity)
+        public async Task UpdateAsync(GaritaEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            _context.ZonaGaritas.Update(entity);
+            _context.Garitas.Update(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(short id)
+        public async Task DeleteAsync(long id)
         {
             var entity = await GetByIdAsync(id);
             if (entity != null)
             {
                 _context.Entry(entity).State = EntityState.Deleted;
-                _context.ZonaGaritas.Remove(entity);
+                _context.Garitas.Remove(entity);
                 await _context.SaveChangesAsync();
             }
         }

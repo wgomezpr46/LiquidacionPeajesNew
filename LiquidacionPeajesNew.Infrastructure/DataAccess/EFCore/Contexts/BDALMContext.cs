@@ -16,6 +16,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Contexts
         public DbSet<ProveedorEntity> Proveedores { get; set; }
         public DbSet<ModoPagoGaritaEntity> ModoPagoGaritas { get; set; }
         public DbSet<TipoGaritaEntity> TipoGaritas { get; set; }
+        public DbSet<GaritaEntity> Garitas { get; set; }
 
         // 2. Constructor
         public BDALMContext(DbContextOptions<BDALMContext> options) : base(options) { }
@@ -32,6 +33,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Contexts
             modelBuilder.ApplyConfiguration(new ProveedorEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ModoPagoGaritaEntityConfiguration());
             modelBuilder.ApplyConfiguration(new TipoGaritaEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new GaritaEntityConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -1,5 +1,5 @@
 ﻿using LiquidacionPeajesNew.Application.DTOs.Requests;
-using LiquidacionPeajesNew.Application.Services.ZonaGaritaService;
+using LiquidacionPeajesNew.Application.Services.GaritaService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LiquidacionPeajesNew.WebAPI.Controllers
@@ -7,28 +7,28 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ZonaGaritaController : ControllerBase
+    public class GaritaController : ControllerBase
     {
-        private readonly IZonaGaritaService _zonaGaritaService;
+        private readonly IGaritaService _garitaService;
 
-        public ZonaGaritaController(IZonaGaritaService zonaGaritaService)
+        public GaritaController(IGaritaService garitaService)
         {
-            _zonaGaritaService = zonaGaritaService;
+            _garitaService = garitaService;
         }
 
-        // GET: api/ZonaGarita/GetAll
+        // GET: api/Garita/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var response = await _zonaGaritaService.GetAllAsync();
+            var response = await _garitaService.GetAllAsync();
             return Ok(response);
         }
 
-        // ✅ GET: api/ZonaGarita/GetById/5
+        // ✅ GET: api/Garita/GetById/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(short id)
+        public async Task<IActionResult> GetById(long id)
         {
-            var response = await _zonaGaritaService.GetByIdAsync(id);
+            var response = await _garitaService.GetByIdAsync(id);
             if (response.Status)
             {
                 return Ok(response);
@@ -39,11 +39,11 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ POST: api/ZonaGarita/Create
+        // ✅ POST: api/Garita/Create
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ZonaGaritaRequest request)
+        public async Task<IActionResult> Create([FromBody] GaritaRequest request)
         {
-            var response = await _zonaGaritaService.AddAsync(request);
+            var response = await _garitaService.AddAsync(request);
             if (response.Status)
             {
                 return Ok(response);
@@ -54,11 +54,11 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ PUT: api/ZonaGarita/Update/5
+        // ✅ PUT: api/Garita/Update
         [HttpPut()]
-        public async Task<IActionResult> Update([FromBody] ZonaGaritaRequest request)
+        public async Task<IActionResult> Update([FromBody] GaritaRequest request)
         {
-            var response = await _zonaGaritaService.UpdateAsync(request);
+            var response = await _garitaService.UpdateAsync(request);
             if (response.Status)
             {
                 return Ok(response);
@@ -69,11 +69,11 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ DELETE: api/ZonaGarita/Delete/5
+        // ✅ DELETE: api/Garita/Delete/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(short id)
+        public async Task<IActionResult> Delete(long id)
         {
-            var response = await _zonaGaritaService.DeleteAsync(id);
+            var response = await _garitaService.DeleteAsync(id);
             if (response.Status)
             {
                 return Ok(response);
