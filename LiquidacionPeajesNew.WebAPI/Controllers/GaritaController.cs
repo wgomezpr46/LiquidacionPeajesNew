@@ -9,18 +9,18 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
     [ApiController]
     public class GaritaController : ControllerBase
     {
-        private readonly IGaritaService _garitaService;
+        private readonly IGaritaService _service;
 
-        public GaritaController(IGaritaService garitaService)
+        public GaritaController(IGaritaService service)
         {
-            _garitaService = garitaService;
+            _service = service;
         }
 
         // GET: api/Garita/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var response = await _garitaService.GetAllAsync();
+            var response = await _service.GetAllAsync();
             return Ok(response);
         }
 
@@ -28,7 +28,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
-            var response = await _garitaService.GetByIdAsync(id);
+            var response = await _service.GetByIdAsync(id);
             if (response.Status)
             {
                 return Ok(response);
@@ -43,7 +43,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] GaritaRequest request)
         {
-            var response = await _garitaService.AddAsync(request);
+            var response = await _service.AddAsync(request);
             if (response.Status)
             {
                 return Ok(response);
@@ -58,7 +58,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpPut()]
         public async Task<IActionResult> Update([FromBody] GaritaRequest request)
         {
-            var response = await _garitaService.UpdateAsync(request);
+            var response = await _service.UpdateAsync(request);
             if (response.Status)
             {
                 return Ok(response);
@@ -73,7 +73,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            var response = await _garitaService.DeleteAsync(id);
+            var response = await _service.DeleteAsync(id);
             if (response.Status)
             {
                 return Ok(response);

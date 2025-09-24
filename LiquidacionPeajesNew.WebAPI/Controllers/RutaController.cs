@@ -9,18 +9,18 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
     [ApiController]
     public class RutaController : ControllerBase
     {
-        private readonly IRutaService _rutaService;
+        private readonly IRutaService _service;
 
-        public RutaController(IRutaService rutaService)
+        public RutaController(IRutaService service)
         {
-            _rutaService = rutaService;
+            _service = service;
         }
 
         // ✅ GET: api/Ruta/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var response = await _rutaService.GetAllAsync();
+            var response = await _service.GetAllAsync();
             return Ok(response);
         }
 
@@ -28,7 +28,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var response = await _rutaService.GetByIdAsync(id);
+            var response = await _service.GetByIdAsync(id);
             if (response.Status)
             {
                 return Ok(response);
@@ -43,7 +43,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] RutaRequest request)
         {
-            var response = await _rutaService.AddAsync(request);
+            var response = await _service.AddAsync(request);
             if (response.Status)
             {
                 return Ok(response);
@@ -58,7 +58,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpPut()]
         public async Task<IActionResult> Update([FromBody] RutaRequest request)
         {
-            var response = await _rutaService.UpdateAsync(request);
+            var response = await _service.UpdateAsync(request);
             if (response.Status)
             {
                 return Ok(response);
@@ -73,7 +73,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var response = await _rutaService.DeleteAsync(id);
+            var response = await _service.DeleteAsync(id);
             if (response.Status)
             {
                 return Ok(response);

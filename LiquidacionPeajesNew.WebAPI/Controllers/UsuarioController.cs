@@ -8,18 +8,18 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioService _userService;
+        private readonly IUsuarioService _service;
 
-        public UsuarioController(IUsuarioService userService)
+        public UsuarioController(IUsuarioService service)
         {
-            _userService = userService;
+            _service = service;
         }
 
         // GET: api/Usuario/GetById/0001
         [HttpGet("{codigo}")]
         public async Task<IActionResult> GetById(string codigo)
         {
-            var response = await _userService.GetByIdAsync(codigo);
+            var response = await _service.GetByIdAsync(codigo);
             if (response.Status)
             {
                 return Ok(response);

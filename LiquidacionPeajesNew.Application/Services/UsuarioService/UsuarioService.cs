@@ -8,18 +8,18 @@ namespace LiquidacionPeajesNew.Application.Services.UsuarioService
 {
     public class UsuarioService : IUsuarioService
     {
-        private readonly IUsuarioRepository _userRepository;
+        private readonly IUsuarioRepository _repository;
         private readonly IMapper _mapper;
 
-        public UsuarioService(IUsuarioRepository userRepository, ITokenService tokenService, IMapper mapper)
+        public UsuarioService(IUsuarioRepository repository, ITokenService tokenService, IMapper mapper)
         {
-            _userRepository = userRepository;
+            _repository = repository;
             _mapper = mapper;
         }
 
         public async Task<ApiResponse<UsuarioLoginResponse>> GetByIdAsync(string codigo)
         {
-            var user = await _userRepository.GetByIdAsync(codigo);
+            var user = await _repository.GetByIdAsync(codigo);
             var response = _mapper.Map<UsuarioLoginResponse>(user);
 
             return new ApiResponse<UsuarioLoginResponse>(true, response, AppResponseCode.AuthenticationSuccessful);

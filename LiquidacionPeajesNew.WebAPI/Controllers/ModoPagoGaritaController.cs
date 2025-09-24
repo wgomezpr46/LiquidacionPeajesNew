@@ -9,18 +9,18 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
     [ApiController]
     public class ModoPagoGaritaController : ControllerBase
     {
-        private readonly IModoPagoGaritaService _pagoGaritaService;
+        private readonly IModoPagoGaritaService _service;
 
-        public ModoPagoGaritaController(IModoPagoGaritaService pagoGaritaService)
+        public ModoPagoGaritaController(IModoPagoGaritaService service)
         {
-            _pagoGaritaService = pagoGaritaService;
+            _service = service;
         }
 
         // GET: api/ModoPagoGarita/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var response = await _pagoGaritaService.GetAllAsync();
+            var response = await _service.GetAllAsync();
             return Ok(response);
         }
 
@@ -28,7 +28,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(short id)
         {
-            var response = await _pagoGaritaService.GetByIdAsync(id);
+            var response = await _service.GetByIdAsync(id);
             if (response.Status)
             {
                 return Ok(response);
@@ -43,7 +43,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ModoPagoGaritaRequest request)
         {
-            var response = await _pagoGaritaService.AddAsync(request);
+            var response = await _service.AddAsync(request);
             if (response.Status)
             {
                 return Ok(response);
@@ -58,7 +58,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpPut()]
         public async Task<IActionResult> Update([FromBody] ModoPagoGaritaRequest request)
         {
-            var response = await _pagoGaritaService.UpdateAsync(request);
+            var response = await _service.UpdateAsync(request);
             if (response.Status)
             {
                 return Ok(response);
@@ -73,7 +73,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(short id)
         {
-            var response = await _pagoGaritaService.DeleteAsync(id);
+            var response = await _service.DeleteAsync(id);
             if (response.Status)
             {
                 return Ok(response);

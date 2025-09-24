@@ -10,11 +10,11 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly ITokenService _tokenService;
+        private readonly ITokenService _service;
 
-        public AuthController(ITokenService tokenService)
+        public AuthController(ITokenService service)
         {
-            _tokenService = tokenService;
+            _service = service;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var response = await _tokenService.Login(request);
+            var response = await _service.Login(request);
             if (response.Status)
             {
                 return Ok(response);
@@ -49,7 +49,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> RefreshToken([FromBody] TokenRequest request)
         {
-            var response = await _tokenService.ValidateToken(request);
+            var response = await _service.ValidateToken(request);
             if (response.Status)
             {
                 return Ok(response);

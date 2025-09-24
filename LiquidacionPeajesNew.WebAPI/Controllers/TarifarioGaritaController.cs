@@ -1,5 +1,5 @@
 ﻿using LiquidacionPeajesNew.Application.DTOs.Requests;
-using LiquidacionPeajesNew.Application.Services.ZonaGaritaService;
+using LiquidacionPeajesNew.Application.Services.TarifarioGaritaService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LiquidacionPeajesNew.WebAPI.Controllers
@@ -7,16 +7,16 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ZonaGaritaController : ControllerBase
+    public class TarifarioGaritaController : ControllerBase
     {
-        private readonly IZonaGaritaService _service;
+        private readonly ITarifarioGaritaService _service;
 
-        public ZonaGaritaController(IZonaGaritaService service)
+        public TarifarioGaritaController(ITarifarioGaritaService service)
         {
             _service = service;
         }
 
-        // GET: api/ZonaGarita/GetAll
+        // GET: api/TarifarioGarita/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -24,9 +24,9 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             return Ok(response);
         }
 
-        // ✅ GET: api/ZonaGarita/GetById/5
+        // ✅ GET: api/TarifarioGarita/GetById/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(short id)
+        public async Task<IActionResult> GetById(int id)
         {
             var response = await _service.GetByIdAsync(id);
             if (response.Status)
@@ -39,9 +39,9 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ POST: api/ZonaGarita/Create
+        // ✅ POST: api/TarifarioGarita/Create
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ZonaGaritaRequest request)
+        public async Task<IActionResult> Create([FromBody] TarifarioGaritaRequest request)
         {
             var response = await _service.AddAsync(request);
             if (response.Status)
@@ -54,9 +54,9 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ PUT: api/ZonaGarita/Update/5
+        // ✅ PUT: api/TarifarioGarita/Update/5
         [HttpPut()]
-        public async Task<IActionResult> Update([FromBody] ZonaGaritaRequest request)
+        public async Task<IActionResult> Update([FromBody] TarifarioGaritaRequest request)
         {
             var response = await _service.UpdateAsync(request);
             if (response.Status)
@@ -69,9 +69,9 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ DELETE: api/ZonaGarita/Delete/5
+        // ✅ DELETE: api/TarifarioGarita/Delete/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(short id)
+        public async Task<IActionResult> Delete(int id)
         {
             var response = await _service.DeleteAsync(id);
             if (response.Status)

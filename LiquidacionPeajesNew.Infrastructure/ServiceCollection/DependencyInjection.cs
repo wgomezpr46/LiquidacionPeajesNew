@@ -20,6 +20,7 @@ namespace LiquidacionPeajesNew.Infrastructure.ServiceCollection
             services.AddScoped<IModoPagoGaritaRepository, ModoPagoGaritaRepository>();
             services.AddScoped<ITipoGaritaRepository, TipoGaritaRepository>();
             services.AddScoped<IGaritaRepository, GaritaRepository>();
+            services.AddScoped<ITarifarioGaritaRepository, TarifarioGaritaRepository>();
 
             return services;
         }
