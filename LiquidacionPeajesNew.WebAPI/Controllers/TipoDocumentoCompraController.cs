@@ -15,7 +15,12 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             _service = service;
         }
 
-        // GET: api/TipoDocumentoCompra/GetAll
+        /// Obtiene todos los tipos de documentos de compra disponibles.
+        /// </summary>
+        /// <returns>Lista de tipos de documentos de compra.</returns>
+        /// <response code="200">Retorna la lista de tipos de documentos de compra con éxito.</response>
+        /// <response code="500">Error interno del servidor.</response>
+        /// GET: api/TipoDocumentoCompra/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

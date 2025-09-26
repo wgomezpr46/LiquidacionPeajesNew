@@ -15,7 +15,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             _service = service;
         }
 
-        // GET: api/Estado/GetAll
+        /// <summary>
+        /// Obtiene todos los estados disponibles.
+        /// </summary>
+        /// <returns>Lista de estados.</returns>
+        /// <response code="200">Retorna la lista de estados con éxito.</response>
+        /// <response code="500">Error interno del servidor.</response>
+        /// GET: api/Estado/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

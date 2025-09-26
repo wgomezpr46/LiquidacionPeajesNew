@@ -15,7 +15,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             _service = service;
         }
 
-        // GET: api/Usuario/GetById/0001
+        /// Obtiene los detalles de un usuario por su código de usuario.
+        /// </summary>
+        /// <param name="codigo">Código del usuario.</param>
+        /// <returns>Detalles del usuario solicitado.</returns>
+        /// <response code="200">Retorna los detalles del usuario con éxito.</response>
+        /// <response code="400">No se pudo encontrar el usuario con el código proporcionado.</response>
+        /// GET: api/Usuario/GetById/0001
         [HttpGet("{codigo}")]
         public async Task<IActionResult> GetById(string codigo)
         {

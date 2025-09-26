@@ -25,6 +25,8 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         /// Retorna un código 200 (OK) con el token de acceso si la autenticación es exitosa; 
         /// de lo contrario, retorna un código 400 (Bad Request) con un mensaje de error.
         /// </returns>
+        /// <response code="200">Retorna el token de acceso con éxito.</response>
+        /// <response code="400">Las credenciales proporcionadas no son válidas.</response>
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
@@ -45,6 +47,8 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         /// </summary>
         /// <param name="request">Contiene el token expirado y los datos del usuario.</param>
         /// <returns>200 OK con el nuevo token si fue renovado, o el original si aún es válido.</returns>
+        /// <response code="200">Retorna un nuevo token si el token original ha sido renovado.</response>
+        /// <response code="400">El token proporcionado es inválido o no puede ser renovado.</response>
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> RefreshToken([FromBody] TokenRequest request)

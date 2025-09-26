@@ -16,7 +16,12 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             _service = service;
         }
 
-        // ✅ GET: api/Ruta/GetAll
+        /// Obtiene todas las rutas disponibles.
+        /// </summary>
+        /// <returns>Lista de rutas.</returns>
+        /// <response code="200">Retorna la lista de rutas con éxito.</response>
+        /// <response code="500">Error interno del servidor.</response>
+        /// ✅ GET: api/Ruta/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -24,7 +29,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             return Ok(response);
         }
 
-        // ✅ GET: api/Ruta/GetById/5
+        /// Obtiene los detalles de una ruta por su ID.
+        /// </summary>
+        /// <param name="id">ID de la ruta.</param>
+        /// <returns>Detalles de la ruta solicitada.</returns>
+        /// <response code="200">Retorna los detalles de la ruta con éxito.</response>
+        /// <response code="404">No se encontró la ruta con el ID proporcionado.</response>
+        /// ✅ GET: api/Ruta/GetById/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -39,7 +50,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ POST: api/Ruta/Create
+        /// Crea una nueva ruta.
+        /// </summary>
+        /// <param name="request">Objeto que contiene la información de la ruta a crear.</param>
+        /// <returns>Resultado de la creación de la ruta.</returns>
+        /// <response code="200">La ruta fue creada con éxito.</response>
+        /// <response code="400">Hubo un error en los datos proporcionados.</response>
+        /// ✅ POST: api/Ruta/Create
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] RutaRequest request)
         {
@@ -54,7 +71,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ PUT: api/Ruta/Update/5
+        /// Actualiza una ruta existente.
+        /// </summary>
+        /// <param name="request">Objeto que contiene la información actualizada de la ruta.</param>
+        /// <returns>Resultado de la actualización de la ruta.</returns>
+        /// <response code="200">La ruta fue actualizada con éxito.</response>
+        /// <response code="400">Hubo un error en los datos proporcionados.</response>
+        /// ✅ PUT: api/Ruta/Update/5
         [HttpPut()]
         public async Task<IActionResult> Update([FromBody] RutaRequest request)
         {
@@ -69,7 +92,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ DELETE: api/Ruta/Delete/5
+        /// Elimina una ruta por su ID.
+        /// </summary>
+        /// <param name="id">ID de la ruta a eliminar.</param>
+        /// <returns>Resultado de la eliminación de la ruta.</returns>
+        /// <response code="200">La ruta fue eliminada con éxito.</response>
+        /// <response code="404">No se encontró la ruta con el ID proporcionado.</response>
+        /// ✅ DELETE: api/Ruta/Delete/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

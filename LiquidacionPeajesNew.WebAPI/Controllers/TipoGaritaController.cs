@@ -16,7 +16,12 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             _service = service;
         }
 
-        // GET: api/TipoGarita/GetAll
+        /// Obtiene todos los tipos de garitas disponibles.
+        /// </summary>
+        /// <returns>Lista de tipos de garitas.</returns>
+        /// <response code="200">Retorna la lista de tipos de garitas con éxito.</response>
+        /// <response code="500">Error interno del servidor.</response>
+        /// GET: api/TipoGarita/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -24,7 +29,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             return Ok(response);
         }
 
-        // ✅ GET: api/TipoGarita/GetById/5
+        /// Obtiene los detalles de un tipo de garita por su ID.
+        /// </summary>
+        /// <param name="id">ID del tipo de garita.</param>
+        /// <returns>Detalles del tipo de garita solicitado.</returns>
+        /// <response code="200">Retorna los detalles del tipo de garita con éxito.</response>
+        /// <response code="404">No se encontró el tipo de garita con el ID proporcionado.</response>
+        /// ✅ GET: api/TipoGarita/GetById/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(short id)
         {
@@ -39,7 +50,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ POST: api/TipoGarita/Create
+        /// Crea un nuevo tipo de garita.
+        /// </summary>
+        /// <param name="request">Objeto que contiene la información del tipo de garita a crear.</param>
+        /// <returns>Resultado de la creación del tipo de garita.</returns>
+        /// <response code="200">El tipo de garita fue creado con éxito.</response>
+        /// <response code="400">Hubo un error en los datos proporcionados.</response>
+        /// ✅ POST: api/TipoGarita/Create
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] TipoGaritaRequest request)
         {
@@ -54,7 +71,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ PUT: api/TipoGarita/Update
+        /// Actualiza un tipo de garita existente.
+        /// </summary>
+        /// <param name="request">Objeto que contiene la información actualizada del tipo de garita.</param>
+        /// <returns>Resultado de la actualización del tipo de garita.</returns>
+        /// <response code="200">El tipo de garita fue actualizado con éxito.</response>
+        /// <response code="400">Hubo un error en los datos proporcionados.</response>
+        /// ✅ PUT: api/TipoGarita/Update
         [HttpPut()]
         public async Task<IActionResult> Update([FromBody] TipoGaritaRequest request)
         {
@@ -69,7 +92,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ DELETE: api/TipoGarita/Delete/5
+        /// Elimina un tipo de garita por su ID.
+        /// </summary>
+        /// <param name="id">ID del tipo de garita a eliminar.</param>
+        /// <returns>Resultado de la eliminación del tipo de garita.</returns>
+        /// <response code="200">El tipo de garita fue eliminado con éxito.</response>
+        /// <response code="404">No se encontró el tipo de garita con el ID proporcionado.</response>
+        /// ✅ DELETE: api/TipoGarita/Delete/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(short id)
         {

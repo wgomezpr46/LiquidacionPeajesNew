@@ -16,7 +16,12 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             _service = service;
         }
 
-        // GET: api/Garita/GetAll
+        /// Obtiene todos los registros de garitas.
+        /// </summary>
+        /// <returns>Lista de garitas.</returns>
+        /// <response code="200">Retorna la lista de garitas con éxito.</response>
+        /// <response code="500">Error interno del servidor.</response>
+        /// ✅ GET: api/Garita/GetAll
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -24,7 +29,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             return Ok(response);
         }
 
-        // ✅ GET: api/Garita/GetById/5
+        /// Obtiene los detalles de una garita por su ID.
+        /// </summary>
+        /// <param name="id">ID de la garita.</param>
+        /// <returns>Detalles de la garita solicitada.</returns>
+        /// <response code="200">Retorna los detalles de la garita con éxito.</response>
+        /// <response code="404">No se encontró la garita con el ID proporcionado.</response>
+        /// ✅ GET: api/Garita/GetById/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {
@@ -39,7 +50,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ POST: api/Garita/Create
+        /// Crea una nueva garita.
+        /// </summary>
+        /// <param name="request">Objeto que contiene la información de la garita a crear.</param>
+        /// <returns>Resultado de la creación de la garita.</returns>
+        /// <response code="200">La garita fue creada con éxito.</response>
+        /// <response code="400">Hubo un error en los datos proporcionados.</response>
+        /// ✅ POST: api/Garita/Create
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] GaritaRequest request)
         {
@@ -54,7 +71,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ PUT: api/Garita/Update
+        /// Actualiza una garita existente.
+        /// </summary>
+        /// <param name="request">Objeto que contiene la información actualizada de la garita.</param>
+        /// <returns>Resultado de la actualización de la garita.</returns>
+        /// <response code="200">La garita fue actualizada con éxito.</response>
+        /// <response code="400">Hubo un error en los datos proporcionados.</response>
+        /// ✅ PUT: api/Garita/Update
         [HttpPut()]
         public async Task<IActionResult> Update([FromBody] GaritaRequest request)
         {
@@ -69,7 +92,13 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
             }
         }
 
-        // ✅ DELETE: api/Garita/Delete/5
+        /// Elimina una garita por su ID.
+        /// </summary>
+        /// <param name="id">ID de la garita a eliminar.</param>
+        /// <returns>Resultado de la eliminación de la garita.</returns>
+        /// <response code="200">La garita fue eliminada con éxito.</response>
+        /// <response code="404">No se encontró la garita con el ID proporcionado.</response>
+        /// ✅ DELETE: api/Garita/Delete/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
