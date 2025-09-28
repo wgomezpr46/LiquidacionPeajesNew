@@ -17,7 +17,9 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Initializers
             }
             catch (Exception ex)
             {
+#pragma warning disable S112 // General or reserved exceptions should never be thrown
                 throw new Exception("Error al inicializar la tabla de logs.", ex);
+#pragma warning restore S112 // General or reserved exceptions should never be thrown
             }
         }
 
