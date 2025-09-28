@@ -1,9 +1,9 @@
 ﻿using LiquidacionPeajesNew.Domain.Entities;
 using LiquidacionPeajesNew.Domain.Interfaces;
 using LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Contexts;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
 {

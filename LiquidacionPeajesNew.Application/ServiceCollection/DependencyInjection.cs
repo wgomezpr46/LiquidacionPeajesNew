@@ -12,7 +12,6 @@ using LiquidacionPeajesNew.Application.Services.TokenService;
 using LiquidacionPeajesNew.Application.Services.UsuarioService;
 using LiquidacionPeajesNew.Application.Services.ZonaGaritaService;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace LiquidacionPeajesNew.Application.ServiceCollection
 {
@@ -21,7 +20,7 @@ namespace LiquidacionPeajesNew.Application.ServiceCollection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             // Registra todos los perfiles de AutoMapper en este ensamblado (Application)
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // Application Service
             services.AddTransient<ILogService, LogService>();
