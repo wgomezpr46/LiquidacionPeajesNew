@@ -1,0 +1,121 @@
+﻿using AutoMapper;
+using LiquidacionPeajesNew.Application.DTOs.Requests;
+using LiquidacionPeajesNew.Application.DTOs.Responses;
+using LiquidacionPeajesNew.Common.Enums;
+using LiquidacionPeajesNew.Domain.Entities;
+using LiquidacionPeajesNew.Domain.Interfaces;
+
+namespace LiquidacionPeajesNew.Application.Services.ZonaGaritaService
+{
+    public class ZonaGaritaService : IZonaGaritaService
+    {
+        private readonly IZonaGaritaRepository _repository;
+        private readonly IMapper _mapper;
+
+        public ZonaGaritaService(IZonaGaritaRepository repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
+
+        public async Task<ApiResponse<IEnumerable<ZonaGaritaResponse>>> GetAllAsync()
+        {
+            var data = await _repository.GetAllAsync();
+            var mapped = _mapper.Map<IEnumerable<ZonaGaritaResponse>>(data);
+
+            return new ApiResponse<IEnumerable<ZonaGaritaResponse>>(
+                status: true,
+                value: mapped,
+                messageCode: AppResponseCode.OperationCompletedSuccessfully
+            );
+        }
+
+        public async Task<ApiResponse<ZonaGaritaResponse>> GetByIdAsync(short id)
+        {
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity.IdZonaGarita == 0)
+            {
+                return new ApiResponse<ZonaGaritaResponse>(
+                    status: false,
+                    value: null,
+                    messageCode: AppResponseCode.RecordNotFoundInDatabase
+                );
+            }
+
+            var mapped = _mapper.Map<ZonaGaritaResponse>(entity);
+
+            return new ApiResponse<ZonaGaritaResponse>(
+                status: true,
+                value: mapped,
+                messageCode: AppResponseCode.OperationCompletedSuccessfully
+            );
+        }
+
+        public async Task<ApiResponse<short>> AddAsync(ZonaGaritaRequest request)
+        {
+            var mapped = _mapper.Map<ZonaGaritaEntity>(request);
+
+            var existe = await _repository.ExistsAsync(mapped.IdZonaGarita, mapped.ZonaGarita);
+            if (existe)
+            {
+                return new ApiResponse<short>(
+                    status: false,
+                    value: 0,
+                    messageCode: AppResponseCode.RecordAlreadyExists
+                );
+            }
+
+            await _repository.AddAsync(mapped);
+
+            return new ApiResponse<short>(
+                status: true,
+                value: mapped.IdZonaGarita,
+                messageCode: AppResponseCode.OperationCompletedSuccessfully
+            );
+        }
+
+        public async Task<ApiResponse<short>> UpdateAsync(ZonaGaritaRequest request)
+        {
+            var mapped = _mapper.Map<ZonaGaritaEntity>(request);
+
+            var existe = await _repository.ExistsAsync(mapped.IdZonaGarita, mapped.ZonaGarita);
+            if (existe)
+            {
+                return new ApiResponse<short>(
+                    status: false,
+                    value: 0,
+                    messageCode: AppResponseCode.RecordAlreadyExists
+                );
+            }
+
+            await _repository.UpdateAsync(mapped);
+
+            return new ApiResponse<short>(
+                status: true,
+                value: mapped.IdZonaGarita,
+                messageCode: AppResponseCode.OperationCompletedSuccessfully
+            );
+        }
+
+        public async Task<ApiResponse<short>> DeleteAsync(short id)
+        {
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity.IdZonaGarita == 0)
+            {
+                return new ApiResponse<short>(
+                    status: false,
+                    value: id,
+                    messageCode: AppResponseCode.RecordNotFoundInDatabase
+                );
+            }
+
+            await _repository.DeleteAsync(id);
+
+            return new ApiResponse<short>(
+                status: true,
+                value: entity.IdZonaGarita,
+                messageCode: AppResponseCode.OperationCompletedSuccessfully
+            );
+        }
+    }
+}

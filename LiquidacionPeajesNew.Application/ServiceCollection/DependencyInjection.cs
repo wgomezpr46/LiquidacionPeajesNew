@@ -1,5 +1,16 @@
-﻿using LiquidacionPeajesNew.Application.Services.TokenService;
-using LiquidacionPeajesNew.Application.Services.UserService;
+﻿using LiquidacionPeajesNew.Application.Services.EstadoService;
+using LiquidacionPeajesNew.Application.Services.GaritaService;
+using LiquidacionPeajesNew.Application.Services.LogService;
+using LiquidacionPeajesNew.Application.Services.ModoPagoGaritaService;
+using LiquidacionPeajesNew.Application.Services.OficinaService;
+using LiquidacionPeajesNew.Application.Services.ProveedorService;
+using LiquidacionPeajesNew.Application.Services.RutaService;
+using LiquidacionPeajesNew.Application.Services.TarifarioGaritaService;
+using LiquidacionPeajesNew.Application.Services.TipoDocumentoCompraService;
+using LiquidacionPeajesNew.Application.Services.TipoGaritaService;
+using LiquidacionPeajesNew.Application.Services.TokenService;
+using LiquidacionPeajesNew.Application.Services.UsuarioService;
+using LiquidacionPeajesNew.Application.Services.ZonaGaritaService;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LiquidacionPeajesNew.Application.ServiceCollection
@@ -8,9 +19,24 @@ namespace LiquidacionPeajesNew.Application.ServiceCollection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            // Registra todos los perfiles de AutoMapper en este ensamblado (Application)
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             // Application Service
-            services.AddScoped<IUserService, UserService>();
+            services.AddTransient<ILogService, LogService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IRutaService, RutaService>();
+            services.AddScoped<IOficinaService, OficinaService>();
+            services.AddScoped<IEstadoService, EstadoService>();
+            services.AddScoped<IZonaGaritaService, ZonaGaritaService>();
+            services.AddScoped<ITipoDocumentoCompraService, TipoDocumentoCompraService>();
+            services.AddScoped<IProveedorService, ProveedorService>();
+            services.AddScoped<IModoPagoGaritaService, ModoPagoGaritaService>();
+            services.AddScoped<ITipoGaritaService, TipoGaritaService>();
+            services.AddScoped<IGaritaService, GaritaService>();
+            services.AddScoped<ITarifarioGaritaService, TarifarioGaritaService>();
+            services.AddHttpContextAccessor();
 
             return services;
         }
