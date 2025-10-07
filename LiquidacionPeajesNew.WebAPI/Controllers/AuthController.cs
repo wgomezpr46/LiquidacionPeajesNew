@@ -7,6 +7,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
+    [AllowAnonymous]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -28,7 +29,6 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         /// <response code="200">Retorna el token de acceso con éxito.</response>
         /// <response code="400">Las credenciales proporcionadas no son válidas.</response>
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             var response = await _service.Login(request);
@@ -50,7 +50,6 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         /// <response code="200">Retorna un nuevo token si el token original ha sido renovado.</response>
         /// <response code="400">El token proporcionado es inválido o no puede ser renovado.</response>
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> RefreshToken([FromBody] TokenRequest request)
         {
             var response = await _service.ValidateToken(request);
