@@ -32,14 +32,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             var response = await _service.Login(request);
-            if (response.Status)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
+            return Ok(response);
         }
 
         /// <summary>
