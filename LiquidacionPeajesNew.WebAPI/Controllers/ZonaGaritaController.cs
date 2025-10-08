@@ -40,14 +40,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         public async Task<IActionResult> GetById(short id)
         {
             var response = await _service.GetByIdAsync(id);
-            if (response.Status)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return NotFound(response);
-            }
+            return Ok(response);
         }
 
         /// Crea una nueva zona de garita.
@@ -61,14 +54,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         public async Task<IActionResult> Create([FromBody] ZonaGaritaRequest request)
         {
             var response = await _service.AddAsync(request);
-            if (response.Status)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
+            return Ok(response);
         }
 
         /// Actualiza una zona de garita existente.
@@ -82,14 +68,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         public async Task<IActionResult> Update([FromBody] ZonaGaritaRequest request)
         {
             var response = await _service.UpdateAsync(request);
-            if (response.Status)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
+            return Ok(response);
         }
 
         /// Elimina una zona de garita por su ID.
@@ -103,14 +82,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         public async Task<IActionResult> Delete(short id)
         {
             var response = await _service.DeleteAsync(id);
-            if (response.Status)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return NotFound(response);
-            }
+            return Ok(response);
         }
     }
 }

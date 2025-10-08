@@ -46,14 +46,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         public async Task<IActionResult> RefreshToken([FromBody] TokenRequest request)
         {
             var response = await _service.ValidateToken(request);
-            if (response.Status)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
+            return Ok(response);
         }
     }
 }

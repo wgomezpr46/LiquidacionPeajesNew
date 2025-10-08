@@ -40,14 +40,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var response = await _service.GetByIdAsync(id);
-            if (response.Status)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return NotFound(response);
-            }
+            return Ok(response);
         }
 
         /// Crea un nuevo tarifario de garita.
@@ -61,14 +54,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         public async Task<IActionResult> Create([FromBody] TarifarioGaritaRequest request)
         {
             var response = await _service.AddAsync(request);
-            if (response.Status)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
+            return Ok(response);
         }
 
         /// Actualiza un tarifario de garita existente.
@@ -82,14 +68,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         public async Task<IActionResult> Update([FromBody] TarifarioGaritaRequest request)
         {
             var response = await _service.UpdateAsync(request);
-            if (response.Status)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
+            return Ok(response);
         }
 
         /// Elimina un tarifario de garita por su ID.
@@ -103,14 +82,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _service.DeleteAsync(id);
-            if (response.Status)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return NotFound(response);
-            }
+            return Ok(response);
         }
     }
 }
