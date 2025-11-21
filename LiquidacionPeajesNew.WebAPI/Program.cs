@@ -83,29 +83,30 @@ namespace LiquidacionPeajesNew.WebAPI
                     Version = "v1"
                 });
 
-                // Agregar soporte para autenticación JWT en Swagger
-                c.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+                // Definición de seguridad JWT
+                var securityScheme = new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
+                    Description = "Ingresa el token JWT en el formato: Bearer {tu_token}",
+                    In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
                     Scheme = JwtBearerDefaults.AuthenticationScheme,
                     BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "Ingresa el token JWT en el formato: Bearer {tu_token}"
-                });
 
+                    // IMPORTANTE: referencia para que Swagger UI lo reconozca correctamente
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = JwtBearerDefaults.AuthenticationScheme
+                    }
+                };
+
+                c.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, securityScheme);
+
+                // Requerimiento global para todos los endpoints
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Name = JwtBearerDefaults.AuthenticationScheme,
-                            Type = SecuritySchemeType.Http,
-                            Scheme = JwtBearerDefaults.AuthenticationScheme,
-                            In = ParameterLocation.Header
-                        },
-                        Array.Empty<string>()
-                    }
+                    { securityScheme, Array.Empty<string>() }
                 });
             });
 
