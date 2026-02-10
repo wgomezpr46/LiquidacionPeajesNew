@@ -119,11 +119,11 @@ namespace LiquidacionPeajesNew.WebAPI
             // Inicializar base de datos (crear tabla si no existe)
             // Capturamos errores para evitar caída al arrancar
             // ----------------------------
-            using (var scope = app.Services.CreateScope())
-            {
-                var dbContext = scope.ServiceProvider.GetRequiredService<BDALMContext>();
-                await DatabaseInitializer.InitializeAsync(dbContext);
-            }
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var dbContext = scope.ServiceProvider.GetRequiredService<BDALMContext>();
+            //    await DatabaseInitializer.InitializeAsync(dbContext);
+            //}
 
             // ----------------------------
             // Habilitar Swagger solo en desarrollo
@@ -137,7 +137,7 @@ namespace LiquidacionPeajesNew.WebAPI
             app.UseHttpsRedirection();                  // Forzar HTTPS
             app.UseRouting();                           // Habilitar enrutamiento
             app.UseCors("AllowAllCORS");                // Aplicar política CORS (ideal antes de auth)
-            app.UseMiddleware<ExceptionMiddleware>();   // Middleware para manejo y logging de excepciones
+            //app.UseMiddleware<ExceptionMiddleware>();   // Middleware para manejo y logging de excepciones
             app.UseAuthentication();                    // Habilitar autenticación JWT
             app.UseAuthorization();                     // Habilitar autorización (roles/políticas)
             app.MapControllers();                       // Mapear controladores a endpoints
