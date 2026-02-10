@@ -26,14 +26,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         public async Task<IActionResult> GetById(string codigo)
         {
             var response = await _service.GetByIdAsync(codigo);
-            if (response.Status)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
+            return Ok(response);
         }
     }
 }

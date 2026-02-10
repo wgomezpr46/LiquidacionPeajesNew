@@ -83,18 +83,31 @@ namespace LiquidacionPeajesNew.WebAPI
                     Version = "v1"
                 });
 
-                // (Opcional) Agregar soporte para autenticación JWT en Swagger
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                // Definición de seguridad JWT
+                var securityScheme = new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
+                    Description = "Ingresa el token JWT en el formato: Bearer {tu_token}",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
                     Scheme = JwtBearerDefaults.AuthenticationScheme,
                     BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "Ingresa el token JWT como: Bearer {tu_token}"
-                });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement { { new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = JwtBearerDefaults.AuthenticationScheme } }, Array.Empty<string>() } });
+                    // IMPORTANTE: referencia para que Swagger UI lo reconozca correctamente
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = JwtBearerDefaults.AuthenticationScheme
+                    }
+                };
+
+                c.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, securityScheme);
+
+                // Requerimiento global para todos los endpoints
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { securityScheme, Array.Empty<string>() }
+                });
             });
 
             // ----------------------------
