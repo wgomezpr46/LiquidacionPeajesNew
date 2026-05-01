@@ -156,12 +156,6 @@ namespace LiquidacionPeajesNew.Application.Services.TokenService
 
         public ApiResponse<string> GenerateToken(UsuarioLoginRequest request)
         {
-            //if (!string.IsNullOrEmpty(request.Usr_Codigo))
-            //{
-            //    var usuario = _userRepository.GetByIdAsync(request.Usr_Codigo);
-            //    request.Usr_Nombre = usuario.Result.Usr_Nombre;
-            //    request.Usr_Estado = usuario.Result.Usr_Estado;
-            //}
             // 🧾 Claims del token (información que viaja dentro del token)
             Claim[] claims = new Claim[]
             {

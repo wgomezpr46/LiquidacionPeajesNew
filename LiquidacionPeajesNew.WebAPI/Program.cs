@@ -1,14 +1,12 @@
 ﻿using LiquidacionPeajesNew.Application.ServiceCollection;
 using LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Contexts;
-using LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Initializers;
 using LiquidacionPeajesNew.Infrastructure.ServiceCollection;
-using LiquidacionPeajesNew.WebAPI.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using System.Text;
 
 namespace LiquidacionPeajesNew.WebAPI
@@ -84,6 +82,8 @@ namespace LiquidacionPeajesNew.WebAPI
                 });
 
                 // Definición de seguridad JWT
+                var securitySchemeName = JwtBearerDefaults.AuthenticationScheme;
+
                 var securityScheme = new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -91,22 +91,18 @@ namespace LiquidacionPeajesNew.WebAPI
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
                     Scheme = JwtBearerDefaults.AuthenticationScheme,
-                    BearerFormat = "JWT",
-
-                    // IMPORTANTE: referencia para que Swagger UI lo reconozca correctamente
-                    Reference = new OpenApiReference
-                    {
-                        Type = ReferenceType.SecurityScheme,
-                        Id = JwtBearerDefaults.AuthenticationScheme
-                    }
+                    BearerFormat = "JWT"
                 };
 
-                c.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, securityScheme);
+                c.AddSecurityDefinition(securitySchemeName, securityScheme);
 
                 // Requerimiento global para todos los endpoints
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                c.AddSecurityRequirement(_ => new OpenApiSecurityRequirement
                 {
-                    { securityScheme, Array.Empty<string>() }
+                    {
+                        new OpenApiSecuritySchemeReference(securitySchemeName, null, null),
+                        new List<string>()
+                    }
                 });
             });
 
@@ -114,16 +110,6 @@ namespace LiquidacionPeajesNew.WebAPI
             // 🚀 Construcción y configuración del pipeline HTTP
             // ----------------------------
             var app = builder.Build();
-
-            // ----------------------------
-            // Inicializar base de datos (crear tabla si no existe)
-            // Capturamos errores para evitar caída al arrancar
-            // ----------------------------
-            //using (var scope = app.Services.CreateScope())
-            //{
-            //    var dbContext = scope.ServiceProvider.GetRequiredService<BDALMContext>();
-            //    await DatabaseInitializer.InitializeAsync(dbContext);
-            //}
 
             // ----------------------------
             // Habilitar Swagger solo en desarrollo
