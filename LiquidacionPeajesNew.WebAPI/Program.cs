@@ -1,6 +1,8 @@
-﻿using LiquidacionPeajesNew.Application.ServiceCollection;
+using LiquidacionPeajesNew.Application.ServiceCollection;
+using LiquidacionPeajesNew.Application.Settings;
 using LiquidacionPeajesNew.Infrastructure.DataAccess.EFCore.Contexts;
 using LiquidacionPeajesNew.Infrastructure.ServiceCollection;
+using LiquidacionPeajesNew.WebAPI.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -16,6 +18,17 @@ namespace LiquidacionPeajesNew.WebAPI
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services
+                .AddOptions<JwtSettings>()
+                .Bind(builder.Configuration.GetRequiredSection(JwtSettings.SectionName))
+                .ValidateDataAnnotations()
+                .Validate(settings => settings.Expires > 0, "JwtSettings:Expires debe ser mayor que cero.")
+                .ValidateOnStart();
+
+            var jwtSettings = builder.Configuration
+                .GetRequiredSection(JwtSettings.SectionName)
+                .Get<JwtSettings>() ?? throw new InvalidOperationException("No se pudo cargar la configuración JWT.");
 
             // ----------------------------
             // 🔗 Configuración de bases de datos con timeout para comandos largos (60 seg)
@@ -63,9 +76,9 @@ namespace LiquidacionPeajesNew.WebAPI
                         ValidateAudience = true, // Verificar el receptor
                         ValidateLifetime = true, // Verificar expiración
                         ValidateIssuerSigningKey = true, // Verificar firma
-                        ValidIssuer = builder.Configuration["JwtSettings:Issuer"], // Emisor esperado
-                        ValidAudience = builder.Configuration["JwtSettings:Audience"], // Receptor esperado
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"])) // Clave secreta para validar firma
+                        ValidIssuer = jwtSettings.Issuer, // Emisor esperado
+                        ValidAudience = jwtSettings.Audience, // Receptor esperado
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)) // Clave secreta para validar firma
                     };
                 });
 
@@ -123,11 +136,11 @@ namespace LiquidacionPeajesNew.WebAPI
             app.UseHttpsRedirection();                  // Forzar HTTPS
             app.UseRouting();                           // Habilitar enrutamiento
             app.UseCors("AllowAllCORS");                // Aplicar política CORS (ideal antes de auth)
-            //app.UseMiddleware<ExceptionMiddleware>();   // Middleware para manejo y logging de excepciones
+            app.UseMiddleware<ExceptionMiddleware>();   // Middleware para manejo y logging de excepciones
             app.UseAuthentication();                    // Habilitar autenticación JWT
             app.UseAuthorization();                     // Habilitar autorización (roles/políticas)
             app.MapControllers();                       // Mapear controladores a endpoints
-            app.Run();                                  // Iniciar la aplicación
+            await app.RunAsync();                                  // Iniciar la aplicación
         }
     }
 }

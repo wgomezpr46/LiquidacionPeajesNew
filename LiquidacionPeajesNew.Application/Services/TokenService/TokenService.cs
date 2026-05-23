@@ -1,11 +1,12 @@
-﻿using AutoMapper;
+using AutoMapper;
 using LiquidacionPeajesNew.Application.DTOs.Requests;
 using LiquidacionPeajesNew.Application.DTOs.Responses;
+using LiquidacionPeajesNew.Application.Settings;
 using LiquidacionPeajesNew.Common.Constants;
 using LiquidacionPeajesNew.Common.Enums;
 using LiquidacionPeajesNew.Domain.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -15,13 +16,13 @@ namespace LiquidacionPeajesNew.Application.Services.TokenService
 {
     public class TokenService : ITokenService
     {
-        private readonly IConfiguration _configuration;
+        private readonly JwtSettings _jwtSettings;
         private readonly IUsuarioRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public TokenService(IConfiguration configuration, IUsuarioRepository userRepository, IMapper mapper)
+        public TokenService(IOptions<JwtSettings> jwtSettings, IUsuarioRepository userRepository, IMapper mapper)
         {
-            _configuration = configuration;
+            _jwtSettings = jwtSettings.Value;
             _userRepository = userRepository;
             _mapper = mapper;
         }
@@ -66,7 +67,7 @@ namespace LiquidacionPeajesNew.Application.Services.TokenService
         public async Task<ApiResponse<TokenResponse>> ValidateToken(TokenRequest request)
         {
             var handler = new JwtSecurityTokenHandler();
-            var keyBytes = Encoding.UTF8.GetBytes(_configuration.GetValue<string>("JwtSettings:Key"));
+            var keyBytes = Encoding.UTF8.GetBytes(_jwtSettings.Key);
             TokenResponse tokenResponse = new();
 
             if (request == null || string.IsNullOrEmpty(request.AccessToken) || request.UserCode == null)
@@ -80,8 +81,8 @@ namespace LiquidacionPeajesNew.Application.Services.TokenService
                 ValidateAudience = true,
                 ValidateIssuerSigningKey = true,
                 ValidateLifetime = true, // ✅ Validamos la expiración
-                ValidIssuer = _configuration.GetValue<string>("JwtSettings:Issuer"),   // Emisor del token
-                ValidAudience = _configuration.GetValue<string>("JwtSettings:Audience"), // Receptor esperado del token
+                ValidIssuer = _jwtSettings.Issuer,   // Emisor del token
+                ValidAudience = _jwtSettings.Audience, // Receptor esperado del token
                 IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
                 ClockSkew = TimeSpan.Zero // ⏱️ Sin tolerancia de tiempo
             };
@@ -118,7 +119,7 @@ namespace LiquidacionPeajesNew.Application.Services.TokenService
                     var response = GenerateToken(userRequest);
                     if (response.Status)
                     {
-                        var NewJwt = handler.ReadJwtToken(response.Value);
+                        var newJwt = handler.ReadJwtToken(response.Value);
 
                         tokenResponse = new TokenResponse
                         {
@@ -127,7 +128,7 @@ namespace LiquidacionPeajesNew.Application.Services.TokenService
                             Message = AppResponseMessages.GetMessage(AppResponseCode.TokenRenewed),
                             TokenType = JwtBearerDefaults.AuthenticationScheme,
                             AccessToken = response.Value,
-                            Claims = NewJwt.Claims.ToDictionary(c => c.Type, c => c.Value)
+                            Claims = newJwt.Claims.ToDictionary(c => c.Type, c => c.Value)
                         };
                     }
                 }
@@ -179,7 +180,7 @@ namespace LiquidacionPeajesNew.Application.Services.TokenService
             };
 
             // 🔐 Obtener la clave secreta desde la configuración
-            var secretKey = _configuration.GetValue<string>("JwtSettings:Key");
+            var secretKey = _jwtSettings.Key;
 
             // Validar que la clave tenga al menos 16 caracteres (requisito para HmacSha256)
             if (string.IsNullOrEmpty(secretKey) || secretKey.Length < 16)
@@ -195,10 +196,10 @@ namespace LiquidacionPeajesNew.Application.Services.TokenService
 
             // 📦 Crear el token JWT
             JwtSecurityToken jwt = new(
-                issuer: _configuration.GetValue<string>("JwtSettings:Issuer"),                                              // Emisor del token
-                audience: _configuration.GetValue<string>("JwtSettings:Audience"),                                          // Receptor esperado del token
+                issuer: _jwtSettings.Issuer,                                                                                // Emisor del token
+                audience: _jwtSettings.Audience,                                                                            // Receptor esperado del token
                 claims: claims,                                                                                             // Información dentro del token
-                expires: DateTime.Now.AddHours(Convert.ToDouble(_configuration.GetValue<string>("JwtSettings:expires"))),   // Tiempo de expiración (1 hora)
+                expires: DateTime.UtcNow.AddHours(_jwtSettings.Expires),                                                    // Tiempo de expiración
                 signingCredentials: signing                                                                                 // Firma del token
             );
 

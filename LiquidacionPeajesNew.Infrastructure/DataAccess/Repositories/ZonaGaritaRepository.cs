@@ -22,14 +22,14 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
                 .ToListAsync();
         }
 
-        public async Task<ZonaGaritaEntity> GetByIdAsync(short id)
+        public async Task<ZonaGaritaEntity> GetByIdAsync(byte id)
         {
             return await _context.ZonaGaritas
                 .Include(x => x.EstadoEntity)
                 .FirstOrDefaultAsync(x => x.IdZonaGarita == id) ?? new ZonaGaritaEntity();
         }
 
-        public async Task<bool> ExistsAsync(short id, string name)
+        public async Task<bool> ExistsAsync(byte id, string name)
         {
             return await _context.ZonaGaritas
                 .AnyAsync(x => x.ZonaGarita == name && (id == 0 || x.IdZonaGarita != id));
@@ -50,7 +50,7 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(short id)
+        public async Task DeleteAsync(byte id)
         {
             var entity = await GetByIdAsync(id);
             if (entity != null)

@@ -2,7 +2,7 @@
 {
     public class ZonaGaritaRequest
     {
-        public short IdZonaGarita { get; set; }
+        public byte IdZonaGarita { get; set; }
         public string ZonaGarita { get; set; }
     }
 }

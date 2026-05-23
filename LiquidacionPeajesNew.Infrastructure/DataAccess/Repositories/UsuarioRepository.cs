@@ -66,31 +66,6 @@ namespace LiquidacionPeajesNew.Infrastructure.DataAccess.Repositories
         {
             var usuarioLogin = new UsuarioLoginEntity();
 
-            #region DATA LOCAL
-#if DEBUG
-            usuarioLogin = new UsuarioLoginEntity
-            {
-                Usr_Codigo = "00001",
-                Usr_Nombre = nombre,
-                Usr_Password = "JELAF20",
-                Usr_Nivel = "1",
-                Usr_Estado = "A",
-                CODI_SUCURSAL = "B",
-                Ben_Codigo = "C",
-                TbPerfil_id = 1,
-                Ccosto = "D",
-                CodAux2 = "E",
-                CodAux3 = "F",
-                CodAux4 = "H",
-                Usr_CodEmp = "I",
-                Formato = 1,
-                Ofi_Codigo = "J",
-            };
-
-            return usuarioLogin;
-#endif
-            #endregion
-
             // Obtener la cadena de conexión del contexto
             var connectionString = _context.Database.GetConnectionString();
             using (var connection = new SqlConnection(connectionString))

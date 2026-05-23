@@ -37,7 +37,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         /// <response code="404">No se encontró la zona de garita con el ID proporcionado.</response>
         /// ✅ GET: api/ZonaGarita/GetById/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(short id)
+        public async Task<IActionResult> GetById(byte id)
         {
             var response = await _service.GetByIdAsync(id);
             return Ok(response);
@@ -79,7 +79,7 @@ namespace LiquidacionPeajesNew.WebAPI.Controllers
         /// <response code="404">No se encontró la zona de garita con el ID proporcionado.</response>
         /// ✅ DELETE: api/ZonaGarita/Delete/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(short id)
+        public async Task<IActionResult> Delete(byte id)
         {
             var response = await _service.DeleteAsync(id);
             return Ok(response);
